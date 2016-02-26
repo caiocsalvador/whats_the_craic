@@ -1,5 +1,4 @@
-# Salvador's CMS
-My custom CMS
+# What's the Craic - Enjoy learning a new language
 
-- adminlte
+- phyton
 - django
