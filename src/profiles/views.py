@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from .models import Profile
 from .forms import ProfileRegisterForm
+from registration.models import RegistrationProfile
 
 # Create your views here.
 
@@ -17,8 +18,16 @@ class ProfileRegister(CreateView):
 
 	def form_valid(self, form):
 		#saving the user first
-		user = User.objects.create_user(self.request.POST.get('name'), self.request.POST.get('email'), self.request.POST.get('password'))
-		user.save()
+		form.cleaned_data
+		#user = User.objects.create_user(self.request.POST.get('name'), self.request.POST.get('email'), self.request.POST.get('password'))
+		#user = User.objects.create_user(form.cleaned_data['name'], form.cleaned_data['email'], form.cleaned_data['password'])
+		#user.save()
+
+		user = RegistrationProfile.objects.create_inactive_user(username=form.cleaned_data['name'],
+        password=form.cleaned_data['password'],
+        email=form.cleaned_data['email'],
+        site=1)
+		
 		#creating the profile
 		profile = form.save(commit=False)
 		#add user_id on profile
@@ -29,16 +38,6 @@ class ProfileRegister(CreateView):
 
 		return HttpResponseRedirect(self.success_url)
 	   
-
-	#def form_valid(self, form):
-		#print(self)
-		#print(form)
-		#f = AuthorForm(request.POST)
-        #self.object = form.save(commit=False)
-        #self.object.course = self.course
-        #self.object.save()
-
-		#return HttpResponseRedirect(self.get_success_url())
 
 	#def get_context_data(self, **kwargs):	
 		#context = super(CmsCreateUser, self).get_context_data(**kwargs)
