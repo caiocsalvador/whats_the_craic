@@ -10,7 +10,7 @@ class Profile(models.Model):
 	email = models.EmailField(max_length=100, unique=True)
 	nui_id = models.IntegerField(unique=True)
 	staff = models.BooleanField(default=True)
-	native = models.CharField(max_length=100)
+	native = models.ForeignKey(Language)
 	learning = models.ManyToManyField(Language, related_name="profile_languages")
 	#media = models.ImageField(blank=True, null=True, upload_to=download_media_location, storage=FileSystemStorage(location=settings.PROTECTED_ROOT))
 

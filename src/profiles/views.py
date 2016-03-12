@@ -18,12 +18,11 @@ class ProfileRegister(CreateView):
 
 	def form_valid(self, form):
 		#saving the user first
-		form.cleaned_data
 		#user = User.objects.create_user(self.request.POST.get('name'), self.request.POST.get('email'), self.request.POST.get('password'))
 		#user = User.objects.create_user(form.cleaned_data['name'], form.cleaned_data['email'], form.cleaned_data['password'])
 		#user.save()
 
-		user = RegistrationProfile.objects.create_inactive_user(username=form.cleaned_data['name'],
+		user = RegistrationProfile.objects.create_inactive_user(username=form.cleaned_data['username'],
         password=form.cleaned_data['password'],
         email=form.cleaned_data['email'],
         site=1)
@@ -39,8 +38,9 @@ class ProfileRegister(CreateView):
 		return HttpResponseRedirect(self.success_url)
 	   
 
-	#def get_context_data(self, **kwargs):	
-		#context = super(CmsCreateUser, self).get_context_data(**kwargs)
-		#context["site_name"] = 	"ae"
-		#context["title"] = 	"- Add User"
-		#return context
+	def get_context_data(self, **kwargs):	
+		context = super(ProfileRegister, self).get_context_data(**kwargs)
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	"- Add User"
+		context["submit_btn"] = "Create Account"
+		return context
