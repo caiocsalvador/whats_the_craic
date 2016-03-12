@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container" style="margin-top: 100px;">
-<form method="POST" action="#">
+<form method="POST" action="#" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{ form.as_p }}
 	<input class="btn-primary" type="submit" value="{% if submit_btn %}{{ submit_btn }}{% else %}Submit{% endif %}">

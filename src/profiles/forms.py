@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import Profile
 import re
+import io
+from PIL import Image
 
 class ProfileRegisterForm (forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Username', 'class':'form-control'}))
@@ -12,7 +14,7 @@ class ProfileRegisterForm (forms.ModelForm):
 
     class Meta:
         model = Profile        
-        fields = ['username', 'email', 'password', 'password2', 'name', 'nui_id', 'staff', 'native', 'learning']
+        fields = ['username', 'email', 'password', 'password2', 'name', 'picture', 'nui_id', 'staff', 'native', 'learning']
         widgets={
                 "name":forms.TextInput(attrs={'placeholder':'Full Name', 'class':'form-control'}),
                 "email":forms.EmailInput(attrs={'placeholder':'Email', 'class':'form-control'}),  
@@ -41,16 +43,55 @@ class ProfileRegisterForm (forms.ModelForm):
             )
 
 
-    def clean_email(self):
-        cleaned_data = super(ProfileRegisterForm, self).clean()
-        email = cleaned_data.get("email")
+    def clean_email(self):       
+        #cleaned_data = super(ProfileRegisterForm, self).clean()
+        #email = cleaned_data.get("email")
+        email = self.cleaned_data['email']
         test_email = re.search("@[\w.]+", email)
         if test_email.group() != "@nuigalway.ie":
             raise forms.ValidationError("You must use your NUI Galway email to sing in")
         else:
             return email
-        
 
+    def clean_username(self):
+        #cleaned_data = super(ProfileRegisterForm, self).clean()
+        #username = cleaned_data.get("username")
+        username = self.cleaned_data['username']
+        if (' ' in username):
+            raise forms.ValidationError("Spaces not allowed for username")  
+        else:
+            return username
+
+
+    def clean_picture(self):
+        print("TESTE")
+        print(self.cleaned_data.get('picture'))
+        image_field = self.cleaned_data.get('picture')
+        image_file = io.BytesIO(image_field.read())
+        image = Image.open(image_file)
+        w, h = image.size
+
+        image = image.resize((w//2, h//2), Image.ANTIALIAS)
+
+        image_file = io.BytesIO()
+        image.save(image_file, 'JPEG', quality=90)
+
+        image_field.file = image_file
+
+        return self.cleaned_data.get('picture')
+
+        #image = Image.open(self.picture)
+        #(width, height) = image.size
+
+        #"Max width and height 800"        
+        #if (800.0 / width < 800.0 / height):
+            #factor = 800 / height
+        #else:
+            #factor = 800 / width
+
+        #size = ( width / factor, height / factor)
+        #image.resize(size, Image.ANTIALIAS)
+        i#mage.save(self.photo.path)
 
 
    # #def save(self, commit=True):

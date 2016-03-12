@@ -1,6 +1,12 @@
 from django.conf import settings
 from languages.models import Language
 from django.db import models
+from django.template.defaultfilters import slugify
+
+def download_media_location(instance, filename):
+	fname, dot, extension = filename.rpartition('.')
+	slug = slugify(fname)
+	return '%s/%s.%s' % (instance.user.id, slug, extension)  
 
 # Create your models here.
 
@@ -12,7 +18,14 @@ class Profile(models.Model):
 	staff = models.BooleanField(default=True)
 	native = models.ForeignKey(Language)
 	learning = models.ManyToManyField(Language, related_name="profile_languages")
-	#media = models.ImageField(blank=True, null=True, upload_to=download_media_location, storage=FileSystemStorage(location=settings.PROTECTED_ROOT))
+	picture = models.ImageField(
+		blank=True,
+		null=True,
+		upload_to=download_media_location
+		) #, storage=FileSystemStorage(location=settings.PROTECTED_ROOT)
 
 	def __str__(self): #def __unicode__(self):
 		return self.name
+
+
+      
