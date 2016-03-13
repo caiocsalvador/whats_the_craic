@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="margin-top: 100px;">
+<h1>{{ object.name }}</h1>
+<h1>{{ object.user }}</h1>
+<h1>{{ object.email }}</h1>
+<h1>{{ object.staff }}</h1>
+<h1>{{ object.native }}</h1>
+{% for item in object.learning.all %}
+	<h1>{{ item.name }} / {{ item.code }}</h1>
+{% endfor %}
+<h1>{{ object.nui_id }}</h1>
+<h1><img src="{{object.picture.url}}" alt=""></h1>
+</div>
+
+{% endblock content %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -8,7 +9,6 @@ from .forms import ProfileRegisterForm
 from registration.models import RegistrationProfile
 
 # Create your views here.
-
 
 class ProfileRegister(CreateView):
 	model = Profile
@@ -40,6 +40,17 @@ class ProfileRegister(CreateView):
 
 	def get_context_data(self, **kwargs):	
 		context = super(ProfileRegister, self).get_context_data(**kwargs)
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	"- Add User"
+		context["submit_btn"] = "Create Account"
+		return context
+
+class ProfileDetailView(DetailView):
+
+	model = Profile
+
+	def get_context_data(self, **kwargs):
+		context = super(ProfileDetailView, self).get_context_data(**kwargs)
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	"- Add User"
 		context["submit_btn"] = "Create Account"
