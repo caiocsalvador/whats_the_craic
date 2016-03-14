@@ -66,28 +66,29 @@ class ProfileRegisterForm (forms.ModelForm):
     def clean_picture(self):
         #print("TESTE")
         #print(self.cleaned_data.get('picture'))
-        image_field = self.cleaned_data.get('picture')
-        image_file = io.BytesIO(image_field.read())
-        image = Image.open(image_file)
-        width, height = image.size
+        if(self.cleaned_data.get('picture')):
+            image_field = self.cleaned_data.get('picture')
+            image_file = io.BytesIO(image_field.read())
+            image = Image.open(image_file)
+            width, height = image.size
 
-        #"Max width and height 800"        
-        if (800.0 / width < 800.0 / height):
-            factor = 800 / width
-        else:
-            factor = 800 / height
+            #"Max width and height 800"        
+            if (800.0 / width < 800.0 / height):
+                factor = 800 / width
+            else:
+                factor = 800 / height
 
-        new_w = int(width * factor)
-        new_h = int(height * factor)
+            new_w = int(width * factor)
+            new_h = int(height * factor)
 
-        image = image.resize((new_w, new_h), Image.ANTIALIAS)
+            image = image.resize((new_w, new_h), Image.ANTIALIAS)
 
-        image_file = io.BytesIO()
-        image.save(image_file, 'JPEG', quality=90)
+            image_file = io.BytesIO()
+            image.save(image_file, 'JPEG', quality=90)
 
-        image_field.file = image_file
+            image_field.file = image_file
 
-        return self.cleaned_data.get('picture')
+            return self.cleaned_data.get('picture')
 
 
         #image = Image.open(self.picture)

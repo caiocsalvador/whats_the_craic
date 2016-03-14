@@ -13,7 +13,7 @@ from registration.models import RegistrationProfile
 class ProfileRegister(CreateView):
 	model = Profile
 	form_class = ProfileRegisterForm	
-	success_url = "/"
+	success_url = "/accounts/register/complete/"
 
 
 	def form_valid(self, form):
