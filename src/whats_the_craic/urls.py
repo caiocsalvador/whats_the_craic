@@ -17,12 +17,13 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from .views import *
 
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^dashboard/$', DashboardView.as_view(), name='dashboard'),
+    url(r'^dashboard/$', login_required(DashboardView.as_view()), name='dashboard'),
 	url(r'^profile/', include("profiles.urls", namespace="profiles")),
 	#url(r'^$', TemplateView.as_view(template_name="home.html")),
     url(r'^register/$', HomeView.as_view(), name='register'),    

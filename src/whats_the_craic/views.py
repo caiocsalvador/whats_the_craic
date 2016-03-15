@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from profiles.models import Profile
 from registration.models import RegistrationProfile
@@ -20,7 +21,7 @@ class HomeView(TemplateView):
 		context["submit_btn"] = ""
 		return context
 
-class DashboardView(TemplateView):
+class DashboardView(SuccessMessageMixin, TemplateView):
 	template_name = "dashboard.html"
 
 	def get_context_data(self, **kwargs):

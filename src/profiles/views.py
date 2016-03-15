@@ -1,15 +1,27 @@
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.views.generic.edit import CreateView, UpdateView
 from .models import Profile
 from .forms import ProfileRegisterForm
 from registration.models import RegistrationProfile
 
+#messagescreate
+#def form_valid(self, form):
+#	user = self.request.user
+#	form.instance.user = user
+#	valid_data = super(nomedaview, self).form_valid(form)
+#	adicione qq coisa apos a mensagem criada
+#	return valid_data
+
 # Create your views here.
 
+### CREATE ###
 class ProfileRegister(CreateView):
 	model = Profile
 	form_class = ProfileRegisterForm	
@@ -41,9 +53,36 @@ class ProfileRegister(CreateView):
 	def get_context_data(self, **kwargs):	
 		context = super(ProfileRegister, self).get_context_data(**kwargs)
 		context["site_name"] = 	"What's the Craic?"
-		context["title"] = 	"- Add User"
+		context["title"] = 	"- Add Profile"
 		context["submit_btn"] = "Create Account"
 		return context
+
+### UPDATE ###
+class ProfileUpdate(SuccessMessageMixin, UpdateView):
+	model = Profile
+	#form_class = ProfileRegisterForm#	
+	fields = ['name', 'picture', 'nui_id', 'staff', 'native', 'learning']
+	success_url = "/dashboard/"
+	template_name = 'profiles/profile_edit.html'
+	success_message = "Profile was updated successfully" 
+			
+
+	def dispatch(self, request, *args, **kwargs):
+		user = self.request.user
+		obj = self.get_object()
+		if obj.user != user:
+			messages.error(self.request, 'This profile is not yours.')
+			return HttpResponseRedirect(reverse('dashboard'))
+		return super(ProfileUpdate, self).dispatch(request, *args, **kwargs)
+
+
+	def get_context_data(self, **kwargs):	
+		context = super(ProfileUpdate, self).get_context_data(**kwargs)
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	"- Update Profile"
+		context["submit_btn"] = "Update Account"
+		return context
+
 
 class ProfileDetailView(DetailView):
 

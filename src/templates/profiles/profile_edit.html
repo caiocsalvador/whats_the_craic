@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<img src="{{object.picture.url}}" alt="">
+<form method="post" action="">
+{% csrf_token %}
+	{{form.name}}
+	{{form.picture}}
+	{{form.nui_id}}
+	{{form.staff}}
+	{{form.native}}
+	{{form.learning}}
+	<button type="submit" class="btn btn-primary">{{submit_btn}}</button>
+  </form>
+</div>
+
+{% endblock content %}
