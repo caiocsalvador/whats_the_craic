@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
@@ -34,3 +35,7 @@ class DashboardView(SuccessMessageMixin, TemplateView):
 		context["profile"] = profile
 		print(profile)
 		return context
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))

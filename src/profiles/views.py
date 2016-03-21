@@ -11,6 +11,7 @@ from .models import Profile
 from .forms import ProfileRegisterForm
 from registration.models import RegistrationProfile
 
+
 #messagescreate
 #def form_valid(self, form):
 #	user = self.request.user

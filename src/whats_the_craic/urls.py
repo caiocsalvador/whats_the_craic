@@ -24,6 +24,7 @@ from .views import *
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^dashboard/$', login_required(DashboardView.as_view()), name='dashboard'),
+    url(r'^logout/$', logout_view, name='logout'),
 	url(r'^profile/', include("profiles.urls", namespace="profiles")),
 	#url(r'^$', TemplateView.as_view(template_name="home.html")),
     url(r'^register/$', HomeView.as_view(), name='register'),    

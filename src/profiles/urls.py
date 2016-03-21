@@ -1,12 +1,13 @@
 
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from .views import *
 
 urlpatterns = [   
 	url(r'^register/$', ProfileRegister.as_view(), name='register'),
-	url(r'^(?P<pk>\d+)/$', ProfileDetailView.as_view(), name='view'),
-    url(r'^update/(?P<pk>\d+)/$', ProfileUpdate.as_view(), name='update'),
+	url(r'^(?P<pk>\d+)/$', login_required(ProfileDetailView.as_view()), name='view'),
+    url(r'^update/(?P<pk>\d+)/$', login_required(ProfileUpdate.as_view()), name='update'),
     #url(r'^$', ProductListView.as_view(), name='list'),
     #url(r'^add/$', ProductCreateView.as_view(), name='crete'),
     #url(r'^(?P<pk>\d+)/$', ProductDetailView.as_view(), name='detail'),

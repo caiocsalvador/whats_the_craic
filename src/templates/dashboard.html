@@ -16,7 +16,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">            
             <a href="{% url 'profiles:update' profile.id %}" class="btn btn-primary pull-right">Edit Profile</a>   
-            <a href="/accounts/login/" class="btn btn-success pull-right">Sing out</a>                    
+            <a href="{% url 'logout'%}" class="btn btn-success pull-right">Sing out</a>                    
         </div>
         <!--/.navbar-collapse -->
     </div>
