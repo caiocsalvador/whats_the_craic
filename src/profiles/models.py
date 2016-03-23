@@ -41,6 +41,10 @@ class Profile(models.Model):
 				if self.native == language:					
 					possible_friends.add(profile)
 		#now test if they are not friends yet
+		for possible_friend in possible_friends.copy():
+			if(Profile.are_friends(possible_friend)):
+				possible_friends.remove(possible_friend)			
+				
 		return possible_friends
 
     
@@ -55,3 +59,11 @@ class Profile(models.Model):
 		for language in self.learning.all():
 			can_teach = Profile.objects.filter(native=language)
 		return can_teach  
+
+	def are_friends(possible_friend):
+		friends = Friendship.objects.filter(Q(from_user=possible_friend) | Q(to_user=possible_friend))
+		if friends:
+			return True
+		else:
+			return False
+

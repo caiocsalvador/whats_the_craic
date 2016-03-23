@@ -31,9 +31,13 @@
     </div>
 {% endif %}
 {{possible_friends}}
-{% for possible_friend in possible_friends %}
-        <li>{{ possible_friend.name }}</li>
-{% endfor %}
+{% if possible_friends %}
+    {% for possible_friend in possible_friends %}
+            <li>{{ possible_friend.name }}</li>
+    {% endfor %}
+{% else %}
+    <h1>None</h1>
+{% endif %}
 {{ user.id }}
 {{ profile.name }}
 {{ profile.email }}
