@@ -30,7 +30,10 @@
         </ul>
     </div>
 {% endif %}
-aaaaaaaaaa
+{{possible_friends}}
+{% for possible_friend in possible_friends %}
+        <li>{{ possible_friend.name }}</li>
+{% endfor %}
 {{ user.id }}
 {{ profile.name }}
 {{ profile.email }}

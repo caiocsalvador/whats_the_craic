@@ -32,8 +32,10 @@ class DashboardView(SuccessMessageMixin, TemplateView):
 		context["submit_btn"] = ""		
 		user = self.request.user
 		profile = Profile.objects.get(user=self.request.user)
+		possible_friends = Profile.find_friends(profile)
 		context["profile"] = profile
-		print(profile)
+		context["possible_friends"] = possible_friends
+		#print(profile)
 		return context
 
 def logout_view(request):

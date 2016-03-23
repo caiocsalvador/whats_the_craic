@@ -1,6 +1,8 @@
 from django.conf import settings
 from languages.models import Language
+from friendships.models import Friendship
 from django.db import models
+from django.db.models import Q
 from django.template.defaultfilters import slugify
 
 def download_media_location(instance, filename):
@@ -27,5 +29,29 @@ class Profile(models.Model):
 	def __str__(self): #def __unicode__(self):
 		return self.name
 
+	#Find possible friends
+	def find_friends(self):
+		possible_friends = set()
 
-      
+		#get all profiles who is native at the languages do you want to learn
+		can_teach = Profile.find_teachers(self)
+		#loop through this profiles and see if they want to learn the native language of this profile
+		for profile in can_teach:	
+			for language in profile.learning.all():
+				if self.native == language:					
+					possible_friends.add(profile)
+		#now test if they are not friends yet
+		return possible_friends
+
+    
+	def is_native(self, language):
+		if self.native == language:
+			return True
+		else:
+			return False
+
+	#get all profiles who is native at the languages do you want to learn
+	def find_teachers(self):
+		for language in self.learning.all():
+			can_teach = Profile.objects.filter(native=language)
+		return can_teach  
