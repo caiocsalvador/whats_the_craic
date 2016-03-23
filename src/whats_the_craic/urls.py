@@ -26,7 +26,6 @@ urlpatterns = [
     url(r'^dashboard/$', login_required(DashboardView.as_view()), name='dashboard'),
     url(r'^logout/$', logout_view, name='logout'),
 	url(r'^profile/', include("profiles.urls", namespace="profiles")),
-    url(r'^friendship/', include("friendships.urls", namespace="friendships")),
 	#url(r'^$', TemplateView.as_view(template_name="home.html")),
     url(r'^register/$', HomeView.as_view(), name='register'),    
     url(r'^admin/', admin.site.urls),

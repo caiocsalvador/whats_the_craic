@@ -27,15 +27,16 @@ class DashboardView(SuccessMessageMixin, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(DashboardView, self).get_context_data(**kwargs)
-		context["site_name"] = 	"What's the Craic?"
-		context["title"] = 	""
-		context["submit_btn"] = ""		
+
+		#TESTS WE NEED
 		user = self.request.user
 		profile = Profile.objects.get(user=self.request.user)
-		possible_friends = Profile.find_friends(profile)
+
+		#ALL CONTEXT VARIABLES
 		context["profile"] = profile
-		context["possible_friends"] = possible_friends
-		#print(profile)
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	""
+		context["submit_btn"] = ""
 		return context
 
 def logout_view(request):

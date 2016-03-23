@@ -91,7 +91,53 @@ class ProfileDetailView(DetailView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ProfileDetailView, self).get_context_data(**kwargs)
+		user = self.request.user
+		profile = Profile.objects.get(user=self.request.user)
+		are_friends = profile.are_friends()
+		waiting = profile.waiting_friendship_approval()
+		if waiting:
+			if profile == waiting:
+				context["waiting"] = "waiting approval"
+			else:
+				context["waiting"] = "accept request"
+
+		context["profile"] = profile
+		context["are_friends"] = are_friends
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	"- Add User"
 		context["submit_btn"] = "Create Account"
 		return context
+
+
+class FindFriends(SuccessMessageMixin, TemplateView):
+	template_name = "findfriends.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(FindFriends, self).get_context_data(**kwargs)
+
+		#TESTS WE NEED
+		user = self.request.user
+		profile = Profile.objects.get(user=self.request.user)
+		possible_friends = Profile.find_friends(profile)
+
+		#ALL CONTEXT VARIABLES
+		context["profile"] = profile
+		context["possible_friends"] = possible_friends
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	""
+		context["submit_btn"] = ""
+		return context
+
+
+class AddFriend(SuccessMessageMixin, TemplateView):
+	template_name = "add_friend.html"
+
+	#def dispatch(self, request, *args, **kwargs):
+		#print(self.kwargs['pk'])
+		#user = self.request.user
+		#obj = self.get_object()
+		#if obj.user != user:
+			#messages.error(self.request, 'This profile is not yours.')
+			#return HttpResponseRedirect(reverse('dashboard'))
+		#return super(ProfileUpdate, self).dispatch(request, *args, **kwargs)
+		

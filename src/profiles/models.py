@@ -1,6 +1,5 @@
 from django.conf import settings
 from languages.models import Language
-from friendships.models import Friendship
 from django.db import models
 from django.db.models import Q
 from django.template.defaultfilters import slugify
@@ -32,18 +31,20 @@ class Profile(models.Model):
 	#Find possible friends
 	def find_friends(self):
 		possible_friends = set()
-
+		print(type(possible_friends))
 		#get all profiles who is native at the languages do you want to learn
-		can_teach = Profile.find_teachers(self)
+		teachers = Profile.find_teachers(self)
+		print(type(teachers))
 		#loop through this profiles and see if they want to learn the native language of this profile
-		for profile in can_teach:	
-			for language in profile.learning.all():
+		for teacher in teachers:	
+			print(type(teacher))
+			for language in teacher.learning.all():
 				if self.native == language:					
-					possible_friends.add(profile)
+					possible_friends.add(teacher)
 		#now test if they are not friends yet
-		for possible_friend in possible_friends.copy():
-			if(Profile.are_friends(possible_friend)):
-				possible_friends.remove(possible_friend)			
+		for person in possible_friends.copy():
+			if(Profile.are_friends(person)):
+				possible_friends.remove(person)			
 				
 		return possible_friends
 
@@ -60,10 +61,31 @@ class Profile(models.Model):
 			can_teach = Profile.objects.filter(native=language)
 		return can_teach  
 
-	def are_friends(possible_friend):
-		friends = Friendship.objects.filter(Q(from_user=possible_friend) | Q(to_user=possible_friend))
-		if friends:
+	def are_friends(self):
+		friend = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & Q(status=True))
+		if friend:
 			return True
 		else:
 			return False
 
+	def waiting_friendship_approval(self):
+		if Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & Q(status=False)):
+			friend = Friendship.objects.get((Q(from_user=self) | Q(to_user=self)) & Q(status=False))
+			if friend:			
+				return friend.from_user
+		else:
+			return False
+
+
+
+
+
+################# FRIENDSHIP MODEL #######################
+
+class Friendship(models.Model):
+	from_user = models.ForeignKey(Profile, related_name="friendship_from_user")
+	to_user = models.ForeignKey(Profile, related_name="friendship_to_user")
+	status = models.BooleanField(default=False)
+	
+	def __str__(self): #def __unicode__(self):
+		return ('%s to %s' % (self.from_user, self.to_user))

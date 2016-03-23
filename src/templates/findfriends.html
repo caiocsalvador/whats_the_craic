@@ -32,16 +32,23 @@
     </div>
 {% endif %}
 {% if possible_friends %}
+    <ul style="margin-top: 100px;">    
     {% for possible_friend in possible_friends %}
-            <li>{{ possible_friend.name }}</li>
+            <li class="thumbnail">
+                <p class="bg-info">{{ possible_friend.name }}</p>
+                <p class="bg-info">{{ possible_friend.native }}</p>
+                {% if possible_friend.picture %}
+                <p class="bg-info"><img style="width: 100px;" src="{{possible_friend.picture.url}}" alt=""></p>
+                {% else %}
+                    <p class="bg-info">no image</p>
+                {% endif %}
+                <a href="{% url 'profiles:view' possible_friend.id%}">See Profile</a>
+            </li>
     {% endfor %}
+    </ul>
 {% else %}
     <h1>None</h1>
 {% endif %}
-{{ user.id }}
-{{ profile.name }}
-{{ profile.email }}
-<img src="{{profile.picture.url}}" alt="">
 
 <!-- /container -->
 {% endblock content %}
