@@ -43,6 +43,14 @@
 {{ profile.name }}
 {{ profile.email }}
 <img src="{{profile.picture.url}}" alt="">
-
+{% if friendships_requests %}
+    <h1> Friendships Requests </h1>
+    {% for friendships_request in friendships_requests %}
+        <p>{{friendships_request.from_user}}</p>
+        {% if friendships_request.from_user.picture %}
+        <img width="100" src="{{friendships_request.from_user.picture.url}}" alt="">
+        {% endif %}
+    {% endfor %}
+{% endif %}
 <!-- /container -->
 {% endblock content %}

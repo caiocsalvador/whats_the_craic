@@ -31,9 +31,11 @@ class DashboardView(SuccessMessageMixin, TemplateView):
 		#TESTS WE NEED
 		user = self.request.user
 		profile = Profile.objects.get(user=self.request.user)
+		friendships_requests = profile.find_friendships_requests()
 
 		#ALL CONTEXT VARIABLES
 		context["profile"] = profile
+		context["friendships_requests"] = friendships_requests
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	""
 		context["submit_btn"] = ""

@@ -44,8 +44,15 @@ class Profile(models.Model):
 				possible_friends.remove(person)	
 			if person.waiting_friendship_approval(self):
 				possible_friends.remove(person)	
-								
+
 		return possible_friends
+
+	#Find possible friends
+	def find_friendships_requests(self):
+
+		friendships_requests = Friendship.objects.filter(to_user=self, status=False)	
+										
+		return friendships_requests
 
     
 	def is_native(self, language):
