@@ -2,14 +2,29 @@
 
 {% block content %}
 <div class="container" style="margin-top: 100px;">
+{% if messages %}
+    <div class="col-lg-3 color03">
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 <p class="bg-primary">YOU: {{ profile.name }}</p>
-{% if are_friends %}
-	<p class="bg-success">Friend</p>
-{% else %}
-	{% if waiting %}
-		<a href="#">{{waiting}}</a>
+{% if profile != object%}
+	{% if are_friends %}
+		<p class="bg-success">Friend</p>
 	{% else %}
-		<a href="#">Add friend</a>
+		{% if waiting %}
+			{% if waiting == "accept request"%}
+				<a href="{% url 'profiles:acceptfriend' object.id %}">{{waiting}}</a>
+			{% else %}
+				<a href="#">{{waiting}}</a>
+			{% endif %}
+		{% else %}
+			<a href="{% url 'profiles:addfriend' object.id %}">Add friend</a>
+		{% endif %}
 	{% endif %}
 {% endif %}
 
@@ -18,11 +33,17 @@
 <h1>{{ object.email }}</h1>
 <h1>{{ object.staff }}</h1>
 <h1>{{ object.native }}</h1>
+<img src="{{ object.native.flag.url }}" alt="">
+
 {% for item in object.learning.all %}
 	<h1>{{ item.name }} / {{ item.code }}</h1>
 {% endfor %}
 <h1>{{ object.nui_id }}</h1>
-<h1><img src="{{object.picture.url}}" alt=""></h1>
+{%if object.picture %}
+	<h1><img src="{{object.picture.url}}" alt=""></h1>
+{% else %}
+	<h1>No Image</h1>
+{% endif %}
 </div>
 
 {% endblock content %}

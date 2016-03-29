@@ -31,21 +31,20 @@ class Profile(models.Model):
 	#Find possible friends
 	def find_friends(self):
 		possible_friends = set()
-		print(type(possible_friends))
 		#get all profiles who is native at the languages do you want to learn
 		teachers = Profile.find_teachers(self)
-		print(type(teachers))
 		#loop through this profiles and see if they want to learn the native language of this profile
 		for teacher in teachers:	
-			print(type(teacher))
 			for language in teacher.learning.all():
 				if self.native == language:					
 					possible_friends.add(teacher)
 		#now test if they are not friends yet
 		for person in possible_friends.copy():
-			if(Profile.are_friends(person)):
-				possible_friends.remove(person)			
-				
+			if(person.are_friends(self)):
+				possible_friends.remove(person)	
+			if person.waiting_friendship_approval(self):
+				possible_friends.remove(person)	
+								
 		return possible_friends
 
     
@@ -61,16 +60,17 @@ class Profile(models.Model):
 			can_teach = Profile.objects.filter(native=language)
 		return can_teach  
 
-	def are_friends(self):
-		friend = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & Q(status=True))
+	def are_friends(self, profile):
+		friend = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & (Q(from_user=profile) | Q(to_user=profile)) & Q(status=True))
 		if friend:
 			return True
 		else:
 			return False
 
-	def waiting_friendship_approval(self):
-		if Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & Q(status=False)):
-			friend = Friendship.objects.get((Q(from_user=self) | Q(to_user=self)) & Q(status=False))
+	def waiting_friendship_approval(self, profile):
+		exist = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & (Q(from_user=profile) | Q(to_user=profile)) & Q(status=False))
+		if exist:
+			friend = Friendship.objects.get((Q(from_user=self) | Q(to_user=self)) & (Q(from_user=profile) | Q(to_user=profile)) & Q(status=False))
 			if friend:			
 				return friend.from_user
 		else:

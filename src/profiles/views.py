@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from .models import Profile
+from .models import Profile, Friendship
 from .forms import ProfileRegisterForm
 from registration.models import RegistrationProfile
 
@@ -93,8 +93,9 @@ class ProfileDetailView(DetailView):
 		context = super(ProfileDetailView, self).get_context_data(**kwargs)
 		user = self.request.user
 		profile = Profile.objects.get(user=self.request.user)
-		are_friends = profile.are_friends()
-		waiting = profile.waiting_friendship_approval()
+		view_profile = Profile.objects.get(id=self.kwargs['pk'])
+		are_friends = profile.are_friends(view_profile)
+		waiting = profile.waiting_friendship_approval(view_profile)
 		if waiting:
 			if profile == waiting:
 				context["waiting"] = "waiting approval"
@@ -132,12 +133,25 @@ class FindFriends(SuccessMessageMixin, TemplateView):
 class AddFriend(SuccessMessageMixin, TemplateView):
 	template_name = "add_friend.html"
 
-	#def dispatch(self, request, *args, **kwargs):
-		#print(self.kwargs['pk'])
-		#user = self.request.user
-		#obj = self.get_object()
-		#if obj.user != user:
-			#messages.error(self.request, 'This profile is not yours.')
-			#return HttpResponseRedirect(reverse('dashboard'))
-		#return super(ProfileUpdate, self).dispatch(request, *args, **kwargs)
-		
+	def dispatch(self, request, *args, **kwargs):
+		user = self.request.user
+		profile = Profile.objects.get(user=self.request.user)
+		view_profile = Profile.objects.get(id=self.kwargs['pk'])
+		friendship = Friendship(from_user=profile, to_user=view_profile, status=False)
+		friendship.save()
+		messages.info(self.request, 'Friendship requested.')
+		return HttpResponseRedirect(reverse('profiles:view', kwargs={'pk':self.kwargs['pk']}))
+
+
+class AcceptFriendship(SuccessMessageMixin, TemplateView):
+	template_name = "add_friend.html"
+
+	def dispatch(self, request, *args, **kwargs):
+		user = self.request.user
+		profile = Profile.objects.get(user=self.request.user)
+		view_profile = Profile.objects.get(id=self.kwargs['pk'])
+		friendship = Friendship.objects.get(from_user=view_profile, to_user=profile)
+		friendship.status = True
+		friendship.save()
+		messages.info(self.request, 'Friendship accepted.')
+		return HttpResponseRedirect(reverse('profiles:view', kwargs={'pk':self.kwargs['pk']}))

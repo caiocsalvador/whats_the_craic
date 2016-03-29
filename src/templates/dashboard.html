@@ -14,7 +14,8 @@
             </button>
             <a class="navbar-brand" href="#">What's the Craic - Enjoy learning a new language</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">            
+        <div id="navbar" class="navbar-collapse collapse">   
+            <a href="{% url 'profiles:view' profile.id %}" class="btn btn-info pull-right">View Profile</a>          
             <a href="{% url 'profiles:update' profile.id %}" class="btn btn-primary pull-right">Edit Profile</a>   
             <a href="{% url 'logout'%}" class="btn btn-success pull-right">Sing out</a>  
             <a href="{% url 'profiles:findfriends'%}" class="btn btn-info pull-right">Find Friends</a>                  
