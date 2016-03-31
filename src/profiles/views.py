@@ -4,10 +4,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from .models import Profile, Friendship
+from .models import Profile, Friendship, Message
 from .forms import ProfileRegisterForm
 from registration.models import RegistrationProfile
 
@@ -130,7 +130,7 @@ class FindFriends(SuccessMessageMixin, TemplateView):
 		return context
 
 
-class AddFriend(SuccessMessageMixin, TemplateView):
+class AddFriend(SuccessMessageMixin, View):
 	template_name = "add_friend.html"
 
 	def dispatch(self, request, *args, **kwargs):
@@ -143,7 +143,7 @@ class AddFriend(SuccessMessageMixin, TemplateView):
 		return HttpResponseRedirect(reverse('profiles:view', kwargs={'pk':self.kwargs['pk']}))
 
 
-class AcceptFriendship(SuccessMessageMixin, TemplateView):
+class AcceptFriendship(SuccessMessageMixin, View):
 	template_name = "add_friend.html"
 
 	def dispatch(self, request, *args, **kwargs):
@@ -155,3 +155,35 @@ class AcceptFriendship(SuccessMessageMixin, TemplateView):
 		friendship.save()
 		messages.info(self.request, 'Friendship accepted.')
 		return HttpResponseRedirect(reverse('profiles:view', kwargs={'pk':self.kwargs['pk']}))
+
+
+class SendMessage(SuccessMessageMixin, TemplateView):
+	template_name = "sendmessage.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(SendMessage, self).get_context_data(**kwargs)
+
+		#TESTS WE NEED
+		user = self.request.user
+		profile = Profile.objects.get(user=self.request.user)
+		message_for = Profile.objects.get(id=self.kwargs['pk'])
+
+		#ALL CONTEXT VARIABLES
+		context["profile"] = profile
+		context["message_for"] = message_for
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	""
+		context["submit_btn"] = ""
+		return context
+
+	def post(self, request, *args, **kwargs):
+		#form = self.form_class(request.POST)
+		form = (self.request.POST)
+		profile = Profile.objects.get(user=self.request.user)
+		message_for = Profile.objects.get(id=self.kwargs['pk'])
+		if form['message']:
+			message = Message(from_user=profile, to_user=message_for, message=form['message'])
+			message.save()
+			print(form['message'])
+			
+		return HttpResponseRedirect(reverse('profiles:sendmessage', kwargs={'pk': self.kwargs['pk']}))

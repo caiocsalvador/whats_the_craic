@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^update/(?P<pk>\d+)/$', login_required(ProfileUpdate.as_view()), name='update'),
     url(r'^findfriends/$', login_required(FindFriends.as_view()), name='findfriends'),
     url(r'^addfriend/(?P<pk>\d+)/$', login_required(AddFriend.as_view()), name='addfriend'),
-    url(r'^acceptfriend/(?P<pk>\d+)/$', login_required(AcceptFriendship.as_view()), name='acceptfriend'),    
+    url(r'^acceptfriend/(?P<pk>\d+)/$', login_required(AcceptFriendship.as_view()), name='acceptfriend'),
+    url(r'^sendmessage/(?P<pk>\d+)/$', login_required(SendMessage.as_view()), name='sendmessage'),    
 ]

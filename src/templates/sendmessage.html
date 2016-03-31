@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="margin-top: 100px;">
+{% if messages %}
+    <div class="col-lg-3 color03">
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<p>From: {{profile.id}}</p>
+<p>To: {{message_for.id}}</p>
+
+<form action="{% url 'profiles:sendmessage' message_for.id %}" method="post">
+    {% csrf_token %}
+    <textarea type="textarea" cols="30" rows="10" name="message"></textarea>
+    <input type="hidden" name="from" value="{{profile.id}}">
+    <input type="hidden" name="for" value="{{message_for.id}}">
+    <input type="submit" value="Submit" />
+</form>
+
+</div>
+
+{% endblock content %}

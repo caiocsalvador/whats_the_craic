@@ -85,8 +85,6 @@ class Profile(models.Model):
 
 
 
-
-
 ################# FRIENDSHIP MODEL #######################
 
 class Friendship(models.Model):
@@ -96,3 +94,12 @@ class Friendship(models.Model):
 	
 	def __str__(self): #def __unicode__(self):
 		return ('%s to %s' % (self.from_user, self.to_user))
+
+class Message(models.Model):
+	from_user = models.ForeignKey(Profile, related_name="message_from_user")
+	to_user = models.ForeignKey(Profile, related_name="message_to_user")
+	message = models.TextField()
+	time = models.TimeField(auto_now=False, auto_now_add=True)
+	
+	def __str__(self): #def __unicode__(self):
+		return ('Message from %s to %s' % (self.from_user, self.to_user))

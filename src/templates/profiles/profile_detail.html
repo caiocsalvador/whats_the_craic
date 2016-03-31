@@ -28,6 +28,8 @@
 	{% endif %}
 {% endif %}
 
+<a href="{% url 'profiles:sendmessage' object.id %}">Send Message</a>
+
 <h1>{{ object.name }}</h1>
 <h1>{{ object.user }}</h1>
 <h1>{{ object.email }}</h1>
