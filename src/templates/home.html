@@ -1,56 +1,299 @@
-{% extends "base.html" %}
 {% load staticfiles %}
 
 {% block content %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">What's the Craic - Enjoy learning a new language</a>
+
+<!DOCTYPE html>
+<html lang="pt_BR">
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store">
+        <meta http-equiv="Pragma" content="no-cache, no-store">
+        <meta http-equiv="expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Whats the Craic - Enjoy learning a new language">
+        <meta name="keywords" content="keywords, keyword">
+        <meta name="robots" content="INDEX, FOLLOW" / >        
+        <meta name="language" content="portuguese" />
+        <meta name="robots" content="INDEX, FOLLOW" />
+        <meta name="copyright" content="What's the Craic? - Todos direitos reservados" />
+        <meta name="document-rights" content="Public" />
+        <meta name="document-rating" content="General" />
+        <meta name="document-state" content="Dynamic" />
+        <meta name="document-distribution" content="Global" / >
+        <meta http-equiv="Content-Language" content="PT-BR" />
+        
+        <!-- Others CSS -->
+        <link type="text/css" rel="stylesheet" href="{% static "materialize/css/materialize.css" %}"  media="screen,projection"/> <!-- Materialize -->
+        <!-- <link rel="stylesheet" media="screen" href="css/jquery-ui-1.10.4.css"> <!-- Jquery UI -->
+        <link rel="stylesheet" href="{% static "js/owl-carousel/owl.carousel.css"%}"><!-- Important Owl stylesheet -->
+        <link rel="stylesheet" href="{% static "js/owl-carousel/owl.theme.css"%}"><!-- Default Theme -->
+        <link rel="stylesheet" href="{% static "css/nivo-slider.css"%}" /><!-- Nivo Slider -->
+        <link rel="stylesheet" href="{% static "css/default/default.css"%}" /><!-- Nivo Default Theme -->
+
+        <!-- Google Font -->
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Style -->
+        <link rel="stylesheet" media="screen" href="{% static "css/style.css"%}">
+        
+        <!-- Favicon -->        
+        <link rel="icon" href="{% static "img/favicon.png"%}" type="image/x-icon"/>
+        <link rel="shortcut icon" href="{% static "img/favicon.png"%}" type="image/x-icon">
+
+        <title>Whats the Craic - Enjoy learning a new language</title>
+    </head>
+    <body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Facebook -->   
+    <div id="fb-root"></div>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=104011343270227";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <script>window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+     
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+     
+      return t;
+    }(document, "script", "twitter-wjs"));</script>
+
+
+    <header id="home">
+        <div class="container">
+            <h1 class="logo"><a href="{% url 'home' %}">Whats the Craic - Enjoy learning a new language</a></h1>
+            <div class="buttons">
+                <a href="{% url 'auth_login' %}">SING IN</a>
+                <a href="{% url 'profiles:register' %}">SING UP</a>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">            
-            <a href="{% url 'profiles:register' %}" class="btn btn-success pull-right">Sing up</a>   
-            <a href="{% url 'auth_login' %}" class="btn btn-success pull-right">Sing in</a>                    
+    </header>       
+    <section id="bg-photo">
+        <div class="parallax-container">
+            <div class="parallax"><img src="{% static "img/bg-header2.png"%}"></div>
         </div>
-        <!--/.navbar-collapse -->
-    </div>
-</nav>
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1>What's the Craic - Enjoy learning a new language</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-    </div>
-</div>
-<div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="info-bg">
+            <h2>CONNECT WITH PEOPLE AND BECOME FLUENT IN ANY LANGUAGE</h2>
+            <a href="#" class="start">GET STARTED NOW</a>
+            <a href="#" class="arrow"><img src="{% static "img/arrow.png"%}" alt=""></a>
+        </div>  
+    </section>
+    <main>
+        <div class="cont-navbar">
+            <div class="navbar">
+                <div class="container">
+                    <h1 class="logo2"><a href="index.php">Whats the Craic - Enjoy learning a new language</a></h1>
+                    <nav role="navigation">
+                        <div class="nav-wrapper">
+                            <ul class="right hide-on-med-and-down">
+                                <li class="nav-home"><a href="#home">HOME</a></li>
+                                <li class="nav-works"><a href="#works">HOW IT WORKS</a></li>
+                                <li class="nav-testimonials"><a href="#testimonials">TESTIMONIALS</a></li>
+                                <li class="nav-contact"><a href="#contact">CONTACT</a></li>
+                            </ul>
+                            <ul id="nav-mobile" class="side-nav" style="left: -250px;">
+                                <li class="nav-home"><a href="#home">HOME</a></li>
+                                <li class="nav-works"><a href="#works">HOW IT WORKS</a></li>
+                                <li class="nav-testimonials"><a href="#testimonials">TESTIMONIALS</a></li>
+                                <li class="nav-contact"><a href="#contact">CONTACT</a></li>
+                            </ul>
+                            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                        </div>
+                    </nav>
+                </div>          
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-    </div>
-    <hr>
+        <section id="works">
+            <div class="container">
+                <h3>HOW IT WORKS</h3>
+                <div class="steps">
+                    <div class="row">
+                        <div class="col m4 s12">
+                            <div class="step">
+                                <div class="img-step">
+                                    <img src="{% static "img/step1.jpg"%}" alt="">
+                                </div>
+                                <h4>FIND A FRIEND</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum asperiores deleniti aliquid non iusto harum sint dicta aspernatur ipsum officiis quaerat molestias a, eveniet cupiditate voluptatem quo quas amet magni.</p>
+                            </div>
+                        </div>
+                        <div class="col m4 s12">
+                            <div class="step">
+                                <div class="img-step">
+                                    <img src="{% static "img/step2.jpg"%}" alt="">
+                                </div>
+                                <h4>FIND A FRIEND</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum asperiores deleniti aliquid non iusto harum sint dicta aspernatur ipsum officiis quaerat molestias a, eveniet cupiditate voluptatem quo quas amet magni.</p>
+                            </div>
+                        </div>
+                        <div class="col m4 s12">
+                            <div class="step">
+                                <div class="img-step">
+                                    <img src="{% static "img/step3.jpg"%}" alt="">
+                                </div>
+                                <h4>FIND A FRIEND</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum asperiores deleniti aliquid non iusto harum sint dicta aspernatur ipsum officiis quaerat molestias a, eveniet cupiditate voluptatem quo quas amet magni.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="testimonials">
+            <div class="container">
+                <h3>TESTIMONIALS</h3>
+                <div class="testimonials">
+                    <div class="item">
+                        <div class="row">
+                            <div class="col l10 offset-l1 m12 s12">
+                                <div class="row">
+                                    <div class="col l3 m4 s12">
+                                        <div class="img-testimonial">
+                                            <img src="{% static "img/dep.jpg"%}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col l9 m8 s12">
+                                        <div class="testimonial-box">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam veniam, tempore praesentium eius sed exercitationem amet doloremque labore alias accusamus, quidem blanditiis tempora quia porro, in, laboriosam provident odio eaque?</p>
+                                            <span>NATALIE PORTMAN</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="row">
+                            <div class="col l10 offset-l1 m12 s12">
+                                <div class="row">
+                                    <div class="col l3 m4 s12">
+                                        <div class="img-testimonial">
+                                            <img src="{% static "img/dep.jpg"%}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col l9 m8 s12">
+                                        <div class="testimonial-box">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam veniam, tempore praesentium eius sed exercitationem amet doloremque labore alias accusamus, quidem blanditiis tempora quia porro, in, laboriosam provident odio eaque?</p>
+                                            <span>NATALIE PORTMAN</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="row">
+                            <div class="col l10 offset-l1 m12 s12">
+                                <div class="row">
+                                    <div class="col l3 m4 s12">
+                                        <div class="img-testimonial">
+                                            <img src="{% static "img/dep.jpg"%}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col l9 m8 s12">
+                                        <div class="testimonial-box">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam veniam, tempore praesentium eius sed exercitationem amet doloremque labore alias accusamus, quidem blanditiis tempora quia porro, in, laboriosam provident odio eaque?</p>
+                                            <b>NATALIE PORTMAN</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <div class="parallax-container2">
+                <div class="parallax"><img src="{% static "img/bg-contact.jpg"%}"></div>
+            </div>
+            <div class="info-contact">
+                <div class="container">
+                    <h3>CONTACT</h3>
+                    <form action="#">
+                        <div class="row">
+                            <div class="input-field col m6 s12">
+                                <input name="name" type="text" placeholder="YOUR NAME">
+                            </div>
+                            <div class="input-field col m6 s12">
+                                <input name="email" type="email" placeholder="YOUR EMAIL">
+                            </div>
+                            <div class="input-field col m12 s12">
+                                <textarea name="message" placeholder="YOUR MESSAGE"></textarea>
+                            </div>
+                            <div class="input-field col m12 s12 center">
+                                <input type="submit" value="SEND" class="send">
+                            </div>
+                        </div>
+                    </form>
+                </div>              
+            </div>
+        </section>
+    </main> 
     <footer>
-        <p>&copy; 2015 Company, Inc.</p>
-    </footer>
-</div>
-<!-- /container -->
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <p>contact@whatsthecraic.eu</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m4 s12">
+                    <div class="tt">
+                        <a class="twitter-timeline"
+                          data-widget-id="600720083413962752"
+                          href="https://twitter.com/TwitterDev"
+                          width="100%"
+                          height="210">
+                        Tweets by @TwitterDev
+                        </a>
+                    </div>                  
+                </div>
+                <div class="col m4 s12">
+                    <div class="face">
+                        <div class="fb-page" data-href="https://www.facebook.com/whatsthecraicLE/" data-tabs="timeline" data-height="210" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/whatsthecraicLE/"><a href="https://www.facebook.com/whatsthecraicLE/">Whats the Craic?</a></blockquote></div></div>
+                    </div>                  
+                </div>
+                <div class="col m4 s12">
+                    <div class="explore">
+                        <a href="#"><img src="{% static "img/explore.jpg" %}" alt=""></a>
+                    </div>                  
+                </div>
+            </div>
+        </div>      
+    </footer>                 
+  
+
+        <script type="text/javascript" src="{% static "js/jquery-2.1.0.min.js" %}"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="{% static "js/modernizr.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/owl-carousel/owl.carousel.js" %}"></script>
+        <!--[if !IE]><!--><script type="text/javascript" src="https://www.gstatic.com/swiffy/v6.0/runtime.js"></script><!--<![endif]-->
+        <script type="text/javascript" src="{% static "materialize/js/materialize.min.js" %}"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script type="text/javascript" src="{% static "js/waypoints.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/respond.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/action.js" %}"></script>
+    </body>
+</html>
+
 {% endblock content %}

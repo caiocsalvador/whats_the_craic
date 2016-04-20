@@ -16,7 +16,7 @@ class Profile(models.Model):
 	name = models.CharField(max_length=100)
 	email = models.EmailField(max_length=100, unique=True)
 	nui_id = models.IntegerField(unique=True)
-	staff = models.BooleanField(default=True)
+	staff = models.BooleanField(default=False)
 	native = models.ForeignKey(Language)
 	learning = models.ManyToManyField(Language, related_name="profile_languages")
 	picture = models.ImageField(
@@ -82,6 +82,29 @@ class Profile(models.Model):
 				return friend.from_user
 		else:
 			return False
+
+	def get_friends(self):
+		friends = set()
+		friendships = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & Q(status=True))
+		if(friendships):
+			for friendship in friendships:
+				if friendship.from_user == self:
+					friends.add(friendship.to_user)
+				else:
+					friends.add(friendship.from_user)
+		return friends
+
+
+	def get_waiting_approvals(self):
+		friends = set()
+		friendships = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & Q(status=False))
+		if(friendships):
+			for friendship in friendships:
+				if friendship.from_user == self:
+					friends.add(friendship.to_user)
+				else:
+					friends.add(friendship.from_user)
+		return friends
 
 
 

@@ -4,20 +4,47 @@
 
 <!--{% block title %}{% trans "Log in" %}{% endblock %}-->
 
-<link rel="stylesheet" href="{% static "css/style.css" %}">
+
 
 
 {% block content %}
-<div class="container">
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="{% trans 'Log in' %}" />
-        <input type="hidden" name="next" value="{% url 'dashboard' %}" />
-    </form>
+<link rel="stylesheet" href="{% static "css/style.css" %}">
+<div class="cont-login">
+    <header id="home">
+        <div class="container">
+            <h1 class="logo"><a href="{% url 'home' %}">Whats the Craic - Enjoy learning a new language</a></h1>
+            <div class="buttons">
+                <a href="{% url 'home' %}">HOME</a>
+            </div>
+        </div>
+    </header>     
+    <div class="container">
+        <div class="cont-form">
+            <div class="white-box">
+                <h3>Do your login below</h3>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            {{ form.username }}
+                            <label>USERNAME</label>
+                        </div>
+                        <div class="input-field col s12">
+                            {{ form.password }}
+                            <label>PASSWORD</label>
+                        </div>
+                    </div>     
+                    <div class="cont-submit">
+                        <input type="submit" value="LOGIN" />
+                    </div>   
+                    <input type="hidden" name="next" value="{% url 'dashboard' %}" />
+                </form>
 
-    <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
-    <p>{% trans "Not a member?" %} <a href="{% url 'profiles:register' %}">{% trans "Register" %}</a>.</p>
+                <!--<p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>-->
+                <p>{% trans "Not a member?" %} <a href="{% url 'profiles:register' %}">{% trans "Register" %}</a>.</p>
+            </div>            
+        </div>        
+    </div>
 </div>
 {% endblock %}
 

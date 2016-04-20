@@ -120,10 +120,14 @@ class FindFriends(SuccessMessageMixin, TemplateView):
 		user = self.request.user
 		profile = Profile.objects.get(user=self.request.user)
 		possible_friends = Profile.find_friends(profile)
+		friendships_requests = profile.find_friendships_requests()
+		waiting_approvals = profile.get_waiting_approvals()
 
 		#ALL CONTEXT VARIABLES
 		context["profile"] = profile
 		context["possible_friends"] = possible_friends
+		context["friendships_requests"] = friendships_requests
+		context["waiting_approvals"] = waiting_approvals
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	""
 		context["submit_btn"] = ""

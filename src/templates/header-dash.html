@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<header id="dashboard" class="z-depth-1">
+    <h1 class="logo"><a href="{% url 'dashboard' %}">Whats the Craic - Enjoy learning a new language</a></h1>
+    <div class="buttons">
+        <a href="{% url 'logout' %}">SING OUT</a>
+    </div>
+</header>
+
+<main>
+
+<section id="sidebar">
+    <div class="cont-side">
+        {% if profile.picture %}
+            <div class="img-profile">            
+                <img src="{{profile.picture.url}}" alt="">
+            </div>
+        {% endif%}
+        <h3>{{ profile.name }}</h3>
+        <h5>{{ profile.native }}</h5>
+        <div class="cont-nav-side">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}" class="icon-home">Home</a></li>
+                    <li><a href="#" class="icon-message">Messages</a></li>
+                    <li><a href="{% url 'profiles:view' profile.id %}" class="icon-view">View Profile</a></li>
+                    <li><a href="{% url 'profiles:update' profile.id %}" class="icon-edit">Edit Profile</a></li>
+                    <li><a href="{% url 'profiles:findfriends'%}" class="icon-friend">Find a Friend</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>

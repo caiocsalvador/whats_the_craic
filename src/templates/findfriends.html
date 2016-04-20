@@ -3,52 +3,109 @@
 
 {% block content %}
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">What's the Craic - Enjoy learning a new language</a>
+{% include "header-dash.html" %}
+    <div class="wrarp">
+        <div class="row">
+            {% if messages %}
+                <div class="col s12">
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="col l9 m12 s12">                
+                <div class="friends box z-depth-1">
+                    <h3 class="title-section">Find Friends</h3>
+                    <div class="cont-friends">
+                        <div class="row">
+                        {% if possible_friends %}
+                            {% for possible_friend in possible_friends %}
+                                
+                            <div class="col m6 s12">
+                                <div class="friend">
+                                    <div class="row">
+                                        <div class="col m5 s5">
+                                            
+                                            {% if possible_friend.picture %}
+                                            <a href="{% url 'profiles:view' possible_friend.id %}">
+                                            <div class="img-friend" style="background-image: url({{ possible_friend.picture.url }})">
+                                            </div>
+                                            </a>
+                                            {% else%}
+                                            <a href="{% url 'profiles:view' possible_friend.id %}">
+                                            <div class="img-friend" style="background-image: url({% static "img/no-image.png" %})">
+                                            </div>
+                                            </a> 
+                                            {% endif %}
+                                                              
+                                        </div>
+                                        <div class="col m7 s7"> 
+                                            <h4><a href="{% url 'profiles:view' possible_friend.id %}">{{ possible_friend.name}} </a></h4>
+                                            <p>{{ possible_friend.native }}</p>
+                                            <a href="{% url 'profiles:view' possible_friend.id %}"><img class="icon-view-friend" title="View Profile" src="{% static "img/icon-view2.png" %}" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                                
+                            {% endfor %}
+                        {% else %}
+                            <h1>Sorry, no one find, try find later</h1>
+                        {% endif %}
+                         </div>
+                    </div> 
+                </div>
+            </div>
+
+            <!-- WAITING APPROVAL --> 
+            {% if waiting_approvals %}
+            <div class="col l9 m12 s12">                
+                <div class="friends box z-depth-1">
+                    <h3 class="title-section">Requests waiting for approval</h3>
+                    <div class="cont-friends">
+                        <div class="row">
+                        
+                            {% for waiting_approval in waiting_approvals %}
+                                
+                            <div class="col m6 s12">
+                                <div class="friend">
+                                    <div class="row">
+                                        <div class="col m5 s5">
+                                            
+                                            {% if waiting_approval.picture %}
+                                            <a href="{% url 'profiles:view' waiting_approval.id %}">
+                                            <div class="img-friend" style="background-image: url({{ waiting_approval.picture.url }})">
+                                            </div>
+                                            </a>
+                                            {% else%}
+                                            <a href="{% url 'profiles:view' waiting_approval.id %}">
+                                            <div class="img-friend" style="background-image: url({% static "img/no-image.png" %})">
+                                            </div>
+                                            </a> 
+                                            {% endif %}
+                                                              
+                                        </div>
+                                        <div class="col m7 s7"> 
+                                            <h4><a href="{% url 'profiles:view' waiting_approval.id %}">{{ waiting_approval.name}} </a></h4>
+                                            <p>{{ waiting_approval.native }}</p>
+                                            <a href="{% url 'profiles:view' waiting_approval.id %}"><img class="icon-view-friend" title="View Profile" src="{% static "img/icon-view2.png" %}" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>                                
+                            {% endfor %}
+                         </div>
+                    </div> 
+                </div>
+            </div>
+            {% endif %}
+            <!-- WAITING APPROVAL END--> 
+
         </div>
-        <div id="navbar" class="navbar-collapse collapse">            
-            <a href="{% url 'profiles:update' profile.id %}" class="btn btn-primary pull-right">Edit Profile</a>   
-            <a href="{% url 'logout'%}" class="btn btn-success pull-right">Sing out</a>  
-            <a href="{% url 'profiles:findfriends'%}" class="btn btn-info pull-right">Find Friends</a>                  
-        </div>
-        <!--/.navbar-collapse -->
     </div>
-</nav>
-{% if messages %}
-    <div class="col-lg-3 color03">
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
-{% if possible_friends %}
-    <ul style="margin-top: 100px;">    
-    {% for possible_friend in possible_friends %}
-            <li class="thumbnail">
-                <p class="bg-info">{{ possible_friend.name }}</p>
-                <p class="bg-info">{{ possible_friend.native }}</p>
-                {% if possible_friend.picture %}
-                <p class="bg-info"><img style="width: 100px;" src="{{possible_friend.picture.url}}" alt=""></p>
-                {% else %}
-                    <p class="bg-info">no image</p>
-                {% endif %}
-                <a href="{% url 'profiles:view' possible_friend.id%}">See Profile</a>
-            </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <h1>None</h1>
-{% endif %}
+</main> 
 
 <!-- /container -->
 {% endblock content %}

@@ -1,7 +1,13 @@
-	    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	    <!-- Include all compiled plugins (below), or include individual files as needed -->
-	    <!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  	</body>
+{% load staticfiles %}
+        <script type="text/javascript" src="{% static "js/jquery-2.1.0.min.js" %}"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="{% static "js/modernizr.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/owl-carousel/owl.carousel.js" %}"></script>
+        <!--[if !IE]><!--><script type="text/javascript" src="https://www.gstatic.com/swiffy/v6.0/runtime.js"></script><!--<![endif]-->
+        <script type="text/javascript" src="{% static "materialize/js/materialize.min.js" %}"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script type="text/javascript" src="{% static "js/waypoints.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/respond.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/action-dash.js" %}"></script>
+    </body>
 </html>

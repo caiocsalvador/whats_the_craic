@@ -1,0 +1,509 @@
+/*
+    Created on : 13/11/2014, 14:07:08
+    Author     : Caio - caiocsalvador@gmail.com
+*/
+
+/* ESTILOS PADRONIZADOS */
+
+/*@font-face{
+    font-family:'bedinibolditalic';
+    src:url("../fonts/bedinibolditalic.woff");
+}*/
+
+@font-face{
+    font-family:'museo-sans700';
+    src:url("../fonts/museosansrounded-700.woff");
+}
+@font-face{
+    font-family:'museo-sans500';
+    src:url("../fonts/museosansrounded-500.woff");
+}
+@font-face{
+    font-family:'museo-sans300';
+    src:url("../fonts/museosansrounded-300.woff");
+}
+
+
+@-webkit-viewport   { width: device-width; }
+@-moz-viewport      { width: device-width; }
+@-ms-viewport       { width: device-width; }
+@-o-viewport        { width: device-width; }
+@viewport           { width: device-width; }
+
+html, body {background-color: #fff;}
+
+#bg {width: 100%;}
+
+body, .no-margin {margin: 0;}
+
+#logo {text-indent: -9999px;margin:0;}
+
+#logo a {display: block;}
+
+#desenvolvidopor {
+    bottom: 200px;
+    position: fixed;
+    right: 0;
+    z-index: 9999;
+}
+
+.img-mask {overflow: hidden;}
+
+.img-mask img {
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.absolute { position: absolute; }
+.relative, .center { position: relative}
+
+.pad20 {padding: 20px;}
+.pad30 {padding: 30px;}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+a:hover {text-decoration: none;}
+
+
+/*  FIM - PADRONIZADOS */
+/* ******************************* */
+
+#desenvolvidopor {
+    bottom: 200px;
+    position: fixed;
+    right: 0;
+    z-index: 9999;
+}
+html{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+body{
+    font-family: 'museo-sans500', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    float: left;
+    background-color: #e1f1f9;
+}
+p{
+    font-family: 'museo-sans500', sans-serif;
+    font-size: 16px;
+    color: #353535;
+    line-height: 23.8px;
+    text-align: left;
+    text-shadow: none;
+    text-transform: none;
+}
+a{
+    font-family: 'museo-sans500', sans-serif;
+    font-size: 15px;
+    text-shadow: none;
+    text-transform: none;
+}
+a:hover{
+    font-family: 'museo-sans500', sans-serif;
+}
+a, a:hover, a img, a:hover img {
+    text-decoration: none;
+    -webkit-transition: all 200ms ;
+    -moz-transition: all 200ms ;
+    -ms-transition: all 200ms ;
+    -o-transition: all 200ms ;
+    transition: all 200ms ;
+}
+ul{
+    list-style: none;
+}
+h1{
+    font-family: 'museo-sans500', sans-serif;
+    font-size: 45px;
+    color: rgb(72, 108, 132);
+    text-align: left;
+    padding: 30px;
+    text-transform: none;
+}
+h2{
+    font-family: 'museo-sans500', sans-serif;
+    text-shadow: none;
+    text-transform: none;
+}
+h3{
+    font-family: 'museo-sans500', sans-serif;
+    text-shadow: none;
+    text-transform: none;
+}
+ul li{
+    list-style: none;
+}
+address{
+    color: #fff;
+}
+header{
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    background-color: #fff;
+}
+.logo {
+    text-indent: -9999px;
+    width: 370px;
+    height: 117px;
+    background-image: url("../img/logo-dash.png");
+    padding: 0px;
+    float: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+}
+.logo a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+main{
+    float: left;
+    width: 100%;
+    padding-top: 117px;
+    min-height: calc(100vh - 117px);
+    position: relative;
+}
+#sidebar{
+    float: left;
+    width: 20%;
+    background-color: #2498d4;
+    height: 100%;
+    padding: 40px;
+}
+.cont-side{
+    float: left;
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+}
+.img-profile{
+    float: left;
+    width: 100%;
+    height: 185px;
+    overflow: hidden;
+    text-align: center;
+}
+.img-profile img{
+    width: 185px;
+    height: auto;
+}
+.buttons a{
+    float: right;
+    color: #2498d4;
+    font-size: 16px;
+    padding: 13px 20px;
+    border: 2px solid #2498d4;
+    margin-left: 20px;
+    margin-top: 30px;
+    margin-right: 20px;
+}
+.buttons a:hover{
+    float: right;
+    color: #fff;
+    background-color: #2498d4;
+    font-size: 16px;
+    padding: 13px 20px;
+    border: 2px solid #2498d4;
+    margin-left: 20px;
+}
+#sidebar h3{
+    color: #fff;
+    font-size: 20px;
+    font-family:'museo-sans700';
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+#sidebar h5{
+    color: #6eccfd;
+    font-size: 14px;
+    font-family:'museo-sans300';
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 0px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #6eccfd;
+    margin-bottom: 0px;
+}
+#sidebar nav{
+    float: left;
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+    height: auto;
+}
+#sidebar nav ul{
+    float: left;
+    width: 100%;
+}
+#sidebar nav li{
+    float: left;
+    width: 100%;
+}
+#sidebar nav li:hover{
+    background-color: #2fa1dc;
+}
+#sidebar nav a{
+    font-size: 18px;
+    padding-left: 50px;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+#sidebar nav a:hover{
+    background-color: transparent;
+}
+.icon-home{
+    background-image: url("../img/icon-home.png");
+}
+.icon-message{
+    background-image: url("../img/icon-message.png");
+}
+.icon-view{
+    background-image: url("../img/icon-view.png");
+}
+.icon-edit{
+    background-image: url("../img/icon-edit.png");
+}
+.icon-friend{
+    background-image: url("../img/icon-friend.png");
+}
+.wrarp{
+    float: left;
+    width: 80%;
+    padding: 30px 20px;
+}
+.friends-requests{
+    float: left;
+    width: 100%;
+    background-color: #f2f6fc;
+    padding: 0px 20px;
+    margin-bottom: 30px;
+}
+.friends-requests h4{
+    color: #2498d4;
+    font-size: 26px;
+    background-image: url("../img/icon-view2.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    font-family:'museo-sans500';
+}
+.friends-requests h4 a{
+    color: #2498d4;
+    font-size: 26px;
+    display: block;
+    font-family:'museo-sans500';
+}
+.friends-requests h4 span{
+    color: #2498d4;
+    font-size: 22px;
+    font-family:'museo-sans300';
+}
+.friends-requests h4 span a{
+    color: #2498d4;
+    font-size: 22px;
+    font-family:'museo-sans300';
+}
+.box{
+    float: left;
+    width: 100%;
+    background-color: #f2f6fc;
+    padding: 20px 20px;
+}
+.profile{
+    margin-top: 0px;
+    margin-left: -0.75rem;
+    /*height: 625px;*/
+}
+.friends{
+    margin-top: 0px;
+    margin-right: -0.75rem;
+    float: right;
+    margin-bottom: 30px;
+    /*height: 625px;*/
+}
+.news{
+    margin-top: 0px;
+    margin-right: -0.75rem;
+    float: left;
+    /*height: 715px;*/
+}
+.title-section{
+    font-size: 28px;
+    color: #2498d4;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid #e1e7f0;
+    padding-bottom: 10px;
+    margin-top: 0px;
+}
+.infos-profile{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.infos-profile h4{
+    color: #2498d4;
+    font-size: 22px;
+    float: left;
+    width: 100%;
+    font-family:'museo-sans500';
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.infos-profile p{
+    color: #8d8d8d;
+    font-size: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    font-family:'museo-sans300';
+}
+.cont-btn{
+    float: left;
+    width: 100%;
+    border-top: 1px solid #e1e7f0;
+    padding: 30px 10px;
+}
+.btn-edit{
+    float: left;
+}
+.btn-edit{
+    float: left;
+    color: #2498d4;
+    font-size: 16px;
+    padding: 13px 20px;
+    border: 2px solid #2498d4;
+    margin-right: 20px;
+}
+.btn-edit:hover{
+    color: #fff;
+    background-color: #2498d4;
+    font-size: 16px;
+    padding: 13px 20px;
+    border: 2px solid #2498d4;
+}
+.cont-friends{
+    height: 432px;
+    overflow: auto;
+}
+.img-friend{
+    height: 105px;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.img-friend img{
+    width: 100%;
+    height: auto;
+}
+.friend{
+    float: left;
+    width: 100%;
+}
+.friends h4{
+    color: #2498d4;
+    font-size: 22px;
+    float: left;
+    width: 100%;
+    font-family:'museo-sans500';
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.friends h4 a{
+    color: #2498d4;
+    font-size: 22px;
+}
+.friends p {
+    color: #8d8d8d;
+    font-size: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-family: 'museo-sans300';
+}
+.icon-view-friend{
+    float: right;
+}
+.new{
+    float: left;
+    width: 100%;
+}
+.new h4{
+    color: #338ec0;
+    font-size: 16px;
+    line-height: 25px;
+    float: left;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.new h4 a {
+    color: #338ec0;
+    font-size: 16px;
+    line-height: 25px;
+}
+.new p{
+    color: #8d8d8d;
+    font-size: 12px;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    width: 100%;
+    font-family: 'museo-sans300';
+}
+.new .read-more{
+    color: #8d8d8d;
+    font-size: 14px;
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    text-align: right;
+    font-family: 'museo-sans300';
+    text-decoration: underline;
+}
+/* COL-MD */
+@media all and (max-width:1100px) and (min-width:992px){
+
+}
+/* COL-SM */
+@media all and (max-width:992px) and (min-width:767px){
+    
+}
+/* COL-XS */
+@media all and (max-width:767px){
+
+}

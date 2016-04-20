@@ -8,18 +8,17 @@ import io
 from PIL import Image
 
 class ProfileRegisterForm (forms.ModelForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Username', 'class':'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password', 'class':'form-control'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Repeat Password', 'class':'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = Profile        
         fields = ['username', 'email', 'password', 'password2', 'name', 'picture', 'nui_id', 'staff', 'native', 'learning']
         widgets={
-                "name":forms.TextInput(attrs={'placeholder':'Full Name', 'class':'form-control'}),
-                "email":forms.EmailInput(attrs={'placeholder':'Email', 'class':'form-control'}),  
-                "nui_id":forms.TextInput(attrs={'placeholder':'NUI ID', 'class':'form-control'}),
-                "learning":forms.SelectMultiple(attrs={'class':'form-control'}),  
+                "name":forms.TextInput(attrs={'class':'form-control'}),
+                "email":forms.EmailInput(attrs={'class':'form-control'}),  
+                "nui_id":forms.TextInput(attrs={'class':'form-control'}),
                 } 
         
     def __init__(self, *args, **kwargs):
