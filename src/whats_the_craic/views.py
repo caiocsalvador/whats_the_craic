@@ -33,12 +33,13 @@ class DashboardView(SuccessMessageMixin, TemplateView):
 		profile = Profile.objects.get(user=self.request.user)
 		friendships_requests = profile.find_friendships_requests()
 		friends = profile.get_friends()
-		print(friends)
+		new_messages_count = profile.get_new_messages_count()
 
 		#ALL CONTEXT VARIABLES
 		context["profile"] = profile
 		context["friendships_requests"] = friendships_requests
 		context["friends"] = friends
+		context["new_messages_count"] = new_messages_count
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	""
 		context["submit_btn"] = ""

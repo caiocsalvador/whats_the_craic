@@ -75,12 +75,15 @@ class Profile(models.Model):
 			return False
 
 	def waiting_friendship_approval(self, profile):
-		exist = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & (Q(from_user=profile) | Q(to_user=profile)) & Q(status=False))
-		if exist:
-			friend = Friendship.objects.get((Q(from_user=self) | Q(to_user=self)) & (Q(from_user=profile) | Q(to_user=profile)) & Q(status=False))
-			if friend:			
-				return friend.from_user
-		else:
+		if self != profile:			
+			exist = Friendship.objects.filter((Q(from_user=self) | Q(to_user=self)) & (Q(from_user=profile) | Q(to_user=profile)) & Q(status=False))
+			if exist:
+				friend = Friendship.objects.get((Q(from_user=self) | Q(to_user=self)) & (Q(from_user=profile) | Q(to_user=profile)) & Q(status=False))
+				if friend:			
+					return friend.from_user
+			else:
+				return False
+		else: 
 			return False
 
 	def get_friends(self):
@@ -106,7 +109,9 @@ class Profile(models.Model):
 					friends.add(friendship.from_user)
 		return friends
 
-
+	def get_new_messages_count(self):
+		count = Message.objects.filter(to_user=self, visualized=False).count()
+		return count
 
 ################# FRIENDSHIP MODEL #######################
 
@@ -122,7 +127,8 @@ class Message(models.Model):
 	from_user = models.ForeignKey(Profile, related_name="message_from_user")
 	to_user = models.ForeignKey(Profile, related_name="message_to_user")
 	message = models.TextField()
-	time = models.TimeField(auto_now=False, auto_now_add=True)
+	date = models.DateTimeField(auto_now=False, auto_now_add=True)
+	visualized = models.BooleanField(default=False)
 	
 	def __str__(self): #def __unicode__(self):
 		return ('Message from %s to %s' % (self.from_user, self.to_user))

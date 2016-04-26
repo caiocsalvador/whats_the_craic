@@ -1,28 +1,36 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
-<div class="container" style="margin-top: 100px;">
-{% if messages %}
-    <div class="col-lg-3 color03">
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
+
+{% include "header-dash.html" %}
+
+    <div class="wrarp">
+        <div class="row">
+            {% if messages %}
+                <div class="col s12">
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="col l9 m12 s12">                
+                <div class="friends messages box z-depth-1">
+                    <h3 class="title-section">Messages</h3>
+                    <p class="to-message"><span>To:</span> {{message_for.name}}</p>
+                    <form action="{% url 'profiles:sendmessage' message_for.id %}" method="post">
+                        {% csrf_token %}
+                        <textarea type="textarea" class="materialize-textarea" name="message" placeholder="TYPE YOUR MESSAGE HERE"></textarea>
+                        <input type="hidden" name="from" value="{{profile.id}}">
+                        <input type="hidden" name="for" value="{{message_for.id}}">
+                        <input type="submit" class="btn-wtc" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-{% endif %}
-
-<p>From: {{profile.id}}</p>
-<p>To: {{message_for.id}}</p>
-
-<form action="{% url 'profiles:sendmessage' message_for.id %}" method="post">
-    {% csrf_token %}
-    <textarea type="textarea" cols="30" rows="10" name="message"></textarea>
-    <input type="hidden" name="from" value="{{profile.id}}">
-    <input type="hidden" name="for" value="{{message_for.id}}">
-    <input type="submit" value="Submit" />
-</form>
-
-</div>
+</main> 
 
 {% endblock content %}

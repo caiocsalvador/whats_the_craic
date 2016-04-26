@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% include "header-dash.html" %}
+
+    <div class="wrarp">
+        <div class="row">
+            {% if messages %}
+                <div class="col s12">
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="col l12 m12 s12">                
+                <div class="friends messages box z-depth-1">
+                    <h3 class="title-section">Sent Messages</h3>
+                    <div class="cont-nav-messages">
+                        <a href="{%url 'profiles:inbox' %}" class="btn-wtc">INBOX</a>
+                    </div>
+                    {% if sent_messages %}
+                        <table>
+                            <thead>
+                              <tr>
+                                  <th>TO</th>
+                                  <th>Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                        {% for message in sent_messages %}
+                            <tr class="resume">
+                                <td>{{message.to_user}}</td>
+                                <td>{{message.date}}</td>                               
+                            </tr>
+                            <tr class="info-message">
+                                <td colspan="2">
+                                    <h5>Message:</h5>
+                                    <p>{{message.message}}</p>
+                                    <div class="cont-reply">
+                                        <a href="{%url 'profiles:sendmessage' message.to_user.id%}" class="btn-wtc">SEND ANOTHER MESSAGE</a>
+                                    </div>                                    
+                                </td>
+                            </tr>
+                        {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if is_paginated %}
+                            <div class="pagination">
+                                <span class="page-links">
+                                    {% if page_obj.has_previous %}
+                                        <a class="btn-wtc" href="{%url 'profiles:sentmessages'%}?page={{ page_obj.previous_page_number }}"><</a>
+                                    {% endif %}
+                                    <span class="page-current">
+                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                    </span>
+                                    {% if page_obj.has_next %}
+                                        <a class="btn-wtc" href="{%url 'profiles:sentmessages'%}?page={{ page_obj.next_page_number }}">></a>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <h1>No messages :(</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main> 
+
+{% endblock content %}

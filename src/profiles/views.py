@@ -2,11 +2,13 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.list import ListView
+import json
 from .models import Profile, Friendship, Message
 from .forms import ProfileRegisterForm
 from registration.models import RegistrationProfile
@@ -63,7 +65,7 @@ class ProfileUpdate(SuccessMessageMixin, UpdateView):
 	model = Profile
 	#form_class = ProfileRegisterForm#	
 	fields = ['name', 'picture', 'nui_id', 'staff', 'native', 'learning']
-	success_url = "/dashboard/"
+	success_url = "/dashboard/"	
 	template_name = 'profiles/profile_edit.html'
 	success_message = "Profile was updated successfully" 
 			
@@ -93,17 +95,19 @@ class ProfileDetailView(DetailView):
 		context = super(ProfileDetailView, self).get_context_data(**kwargs)
 		user = self.request.user
 		profile = Profile.objects.get(user=self.request.user)
+		new_messages_count = profile.get_new_messages_count()
 		view_profile = Profile.objects.get(id=self.kwargs['pk'])
 		are_friends = profile.are_friends(view_profile)
 		waiting = profile.waiting_friendship_approval(view_profile)
 		if waiting:
 			if profile == waiting:
-				context["waiting"] = "waiting approval"
+				context["waiting"] = "WAITING APPROVAL"
 			else:
-				context["waiting"] = "accept request"
+				context["waiting"] = "ACCEPT REQUEST"
 
 		context["profile"] = profile
 		context["are_friends"] = are_friends
+		context["new_messages_count"] = new_messages_count
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	"- Add User"
 		context["submit_btn"] = "Create Account"
@@ -122,12 +126,14 @@ class FindFriends(SuccessMessageMixin, TemplateView):
 		possible_friends = Profile.find_friends(profile)
 		friendships_requests = profile.find_friendships_requests()
 		waiting_approvals = profile.get_waiting_approvals()
+		new_messages_count = profile.get_new_messages_count()
 
 		#ALL CONTEXT VARIABLES
 		context["profile"] = profile
 		context["possible_friends"] = possible_friends
 		context["friendships_requests"] = friendships_requests
 		context["waiting_approvals"] = waiting_approvals
+		context["new_messages_count"] = new_messages_count
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	""
 		context["submit_btn"] = ""
@@ -171,10 +177,12 @@ class SendMessage(SuccessMessageMixin, TemplateView):
 		user = self.request.user
 		profile = Profile.objects.get(user=self.request.user)
 		message_for = Profile.objects.get(id=self.kwargs['pk'])
+		new_messages_count = profile.get_new_messages_count()
 
 		#ALL CONTEXT VARIABLES
 		context["profile"] = profile
 		context["message_for"] = message_for
+		context["new_messages_count"] = new_messages_count
 		context["site_name"] = 	"What's the Craic?"
 		context["title"] = 	""
 		context["submit_btn"] = ""
@@ -188,6 +196,76 @@ class SendMessage(SuccessMessageMixin, TemplateView):
 		if form['message']:
 			message = Message(from_user=profile, to_user=message_for, message=form['message'])
 			message.save()
-			print(form['message'])
-			
-		return HttpResponseRedirect(reverse('profiles:sendmessage', kwargs={'pk': self.kwargs['pk']}))
+			messages.success(request, 'Message was sent')
+		return HttpResponseRedirect(reverse('profiles:sentmessages'))
+
+
+class SentMessages(SuccessMessageMixin, ListView):
+
+	template_name = "sentmessages.html"
+	paginate_by = 10
+	context_object_name = "sent_messages"
+
+	def get_queryset(self):
+		profile = Profile.objects.get(user=self.request.user)
+		return Message.objects.filter(from_user = profile).order_by('-date')
+
+	def get_context_data(self, **kwargs):
+		context = super(SentMessages, self).get_context_data(**kwargs)
+
+		#TESTS WE NEED
+		user = self.request.user
+		profile = Profile.objects.get(user=self.request.user)
+		#sent_messages = Message.objects.filter(from_user = profile).order_by('-date')
+		new_messages_count = profile.get_new_messages_count()
+
+		#ALL CONTEXT VARIABLES
+		context["profile"] = profile
+		context["new_messages_count"] = new_messages_count
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	""
+		context["submit_btn"] = ""
+		return context
+
+class Inbox(SuccessMessageMixin, ListView):
+
+	template_name = "inbox.html"
+	paginate_by = 10
+	context_object_name = "inbox_messages"
+
+	def get_queryset(self):
+		profile = Profile.objects.get(user=self.request.user)
+		return Message.objects.filter(to_user = profile).order_by('-date')
+
+	def get_context_data(self, **kwargs):
+		context = super(Inbox, self).get_context_data(**kwargs)
+
+		#TESTS WE NEED
+		user = self.request.user
+		profile = Profile.objects.get(user=self.request.user)		
+		new_messages_count = profile.get_new_messages_count()
+
+		#ALL CONTEXT VARIABLES
+		context["profile"] = profile
+		context["new_messages_count"] = new_messages_count
+		context["site_name"] = 	"What's the Craic?"
+		context["title"] = 	""
+		context["submit_btn"] = ""
+		return context
+
+class VizualizedMessage(SuccessMessageMixin, View):
+	template_name = "add_friend.html"
+
+	def dispatch(self, request, *args, **kwargs):
+		response_data = {}
+		message = Message.objects.get(id=request.POST.get('messageId'))
+		message.visualized = True
+		message.save()
+
+		response_data['result'] = 'Message visualized!'
+		response_data['visualized'] = message.visualized
+
+		return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )

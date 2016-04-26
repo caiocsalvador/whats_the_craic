@@ -1,17 +1,90 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
-<img src="{{object.picture.url}}" alt="">
-<form method="post" action="">
-{% csrf_token %}
-	{{form.name}}
-	{{form.picture}}
-	{{form.nui_id}}
-	{{form.staff}}
-	{{form.native}}
-	{{form.learning}}
-	<button type="submit" class="btn btn-primary">{{submit_btn}}</button>
-  </form>
+{% include "header-dash.html" %}
+
+<div class="wrarp">
+    <div class="row">
+        {% if messages %}
+            <div class="col s12">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="col l9 m12 s12">
+            <div class="row">                
+                <div class="profile box z-depth-1">
+                    <h3 class="title-section">Edit Profile</h3>
+                    <form class="form-edit" method="post" action="." enctype="multipart/form-data">
+                    	{% csrf_token %}
+                    <div class="row">
+                    	<div class="col m6 s12">
+            		    	{%if object.picture %}
+            					<div class="profile-photo" style="background-image: url({{ object.picture.url }})">
+            					</div>                  		
+            		    	{% else %}
+            		    		<div class="profile-photo" background-image: url({% static "img/no-image.png" %})>
+            		    		</div>
+            		    	{% endif %}
+                    	</div>            	    	
+            	    	<div class="input-field input-edit-picture col m6 s12">	                	
+				      		<h5>{{ form.picture.label }}</h5>
+				      		<span class="btn-wtc">CHANGE PROFILE PICTURE</span>
+				      		<div class="cont-profile-picture">
+				      			{{ form.picture }} 
+				      		</div>	                    	
+	                    	{{ form.picture.errors }}
+		                </div>
+                    </div>
+                	
+                    <div class="infos-profile">                        
+                    	{{ form.non_field_errors }}    		            
+    		            <div class="row no-margin">
+    		                <div class="input-field col m6 s12">	                	
+    		                    {{ form.name }}
+    		                    <label for="id_name">Full Name</label>
+    		                    {{ form.name.errors }}
+    		                </div>    	
+    		                <div class="input-field col m6 s12">	                	
+    		                    {{ form.native }}
+    		                    <label for="id_native">Native Language</label>
+    		                    {{ form.native.errors }}
+    		                </div>	                
+    	                </div>
+    	                <div class="row no-margin">
+    		                <div class="input-field col m6 s12">	                	
+    		                    {{ form.nui_id }}
+    		                    <label for="id_nui_id">NUI ID</label>
+    		                    {{ form.nui_id.errors }}
+    		                </div>
+    		                <div class="input-field col m6 s12">	                	
+    		                    {{ form.staff }}
+    		                    <label for="id_staff">Are you Staff Member?</label>
+    		                    {{ form.staff.errors }}
+    		                </div>
+    	                </div>
+    	                <div class="row no-margin">
+    		                
+    		                <div class="input-field col m6 s12">	                	
+    		                    {{ form.learning }}
+    		                    <label for="id_learning">Languages you want to learn</label>
+    		                    {{ form.learning.errors }}
+    		                </div>
+    	                </div>
+                    </div>
+                    <div class="cont-btn">
+                        <button type="submit" class="btn-wtc">EDIT PROFILE</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+</main> 
 
 {% endblock content %}

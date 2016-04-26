@@ -21,7 +21,12 @@
             <nav>
                 <ul>
                     <li><a href="{% url 'dashboard' %}" class="icon-home">Home</a></li>
-                    <li><a href="#" class="icon-message">Messages</a></li>
+                    {% if new_messages_count > 0 %}
+                        <li><a href="{% url 'profiles:inbox' %}" class="icon-message">Messages <span>{{new_messages_count}}</span></a></li>
+                    {% else %}
+                        <li><a href="{% url 'profiles:inbox' %}" class="icon-message">Messages</a></li>
+                    {% endif %}
+                    
                     <li><a href="{% url 'profiles:view' profile.id %}" class="icon-view">View Profile</a></li>
                     <li><a href="{% url 'profiles:update' profile.id %}" class="icon-edit">Edit Profile</a></li>
                     <li><a href="{% url 'profiles:findfriends'%}" class="icon-friend">Find a Friend</a></li>

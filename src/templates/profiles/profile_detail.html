@@ -1,51 +1,65 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
-<div class="container" style="margin-top: 100px;">
-{% if messages %}
-    <div class="col-lg-3 color03">
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
+
+{% include "header-dash.html" %}
+    <div class="wrarp">
+        <div class="row">
+            {% if messages %}
+                <div class="col s12">
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="col l9 m12 s12">                
+                <div class="profile box z-depth-1">
+                    <h3 class="title-section">{{object.name}}</h3>
+                	{%if object.picture %}
+            			<div class="profile-photo" style="background-image: url({{ object.picture.url }})">
+            			</div>                  		
+                	{% else %}
+                		<div class="profile-photo" background-image: url({% static "img/no-image.png" %})>
+                		</div>
+                	{% endif %}
+                    {% if profile != object%}
+                    	{% if are_friends %}
+                    		<a href="#" class="right active btn-wtc">FRIENDS</a>
+                    	{% else %}
+                    		{% if waiting %}
+                    			{% if waiting == "accept request"%}
+                    				<a class="right btn-wtc" href="{% url 'profiles:acceptfriend' object.id %}">{{waiting}}</a>
+                    			{% else %}
+                    				<a class="right btn-wtc active" href="#">{{waiting}}</a>
+                    			{% endif %}
+                    		{% else %}
+                    			<a class="right btn-wtc" href="{% url 'profiles:addfriend' object.id %}">ADD FRIEND</a>
+                    		{% endif %}
+                    	{% endif %}
+                    	 <a class="right btn-wtc btn-message" href="{% url 'profiles:sendmessage' object.id %}">SEND MESSAGE</a>
+                    {% endif %}
+                        <div class="infos-profile"> 
+                        	<h4>Native Language:</h4>
+                            <p>{{ object.native }}</p>                       	
+                            <h4>Email:</h4>
+                            <p>{{ object.email }}</p>                            
+                            <h4>Languages you want to learn:</h4>
+                            <p>
+                            {% for language in object.learning.all %}
+                                {{ language.name }}, 
+                            {% endfor %}</p>
+                            <h4>NUID:</h4>
+                            <p>{{ object.nui_id }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-{% endif %}
-<p class="bg-primary">YOU: {{ profile.name }}</p>
-{% if profile != object%}
-	{% if are_friends %}
-		<p class="bg-success">Friend</p>
-	{% else %}
-		{% if waiting %}
-			{% if waiting == "accept request"%}
-				<a href="{% url 'profiles:acceptfriend' object.id %}">{{waiting}}</a>
-			{% else %}
-				<a href="#">{{waiting}}</a>
-			{% endif %}
-		{% else %}
-			<a href="{% url 'profiles:addfriend' object.id %}">Add friend</a>
-		{% endif %}
-	{% endif %}
-{% endif %}
+</main> 
 
-<a href="{% url 'profiles:sendmessage' object.id %}">Send Message</a>
-
-<h1>{{ object.name }}</h1>
-<h1>{{ object.user }}</h1>
-<h1>{{ object.email }}</h1>
-<h1>{{ object.staff }}</h1>
-<h1>{{ object.native }}</h1>
-<img src="{{ object.native.flag.url }}" alt="">
-
-{% for item in object.learning.all %}
-	<h1>{{ item.name }} / {{ item.code }}</h1>
-{% endfor %}
-<h1>{{ object.nui_id }}</h1>
-{%if object.picture %}
-	<h1><img src="{{object.picture.url}}" alt=""></h1>
-{% else %}
-	<h1>No Image</h1>
-{% endif %}
-</div>
-
+<!-- /container -->
 {% endblock content %}
