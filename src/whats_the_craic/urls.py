@@ -27,7 +27,8 @@ urlpatterns = [
     url(r'^logout/$', logout_view, name='logout'),
 	url(r'^profile/', include("profiles.urls", namespace="profiles")),
 	#url(r'^$', TemplateView.as_view(template_name="home.html")),
-    url(r'^register/$', HomeView.as_view(), name='register'),    
+    url(r'^register/$', HomeView.as_view(), name='register'), 
+    url(r'^contact/$', Contact.as_view(), name='contact'),   
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.default.urls')),
 ]
