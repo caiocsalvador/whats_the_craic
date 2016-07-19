@@ -19,6 +19,7 @@ class Profile(models.Model):
 	staff = models.BooleanField(default=False)
 	native = models.ForeignKey(Language)
 	learning = models.ManyToManyField(Language, related_name="profile_languages")
+	about = models.TextField(null=True)
 	picture = models.ImageField(
 		blank=True,
 		null=True,

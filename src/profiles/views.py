@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -64,7 +65,10 @@ class ProfileRegister(CreateView):
 class ProfileUpdate(SuccessMessageMixin, UpdateView):
 	model = Profile
 	#form_class = ProfileRegisterForm#	
-	fields = ['name', 'picture', 'nui_id', 'staff', 'native', 'learning']
+	fields = ['name', 'picture', 'nui_id', 'staff', 'native', 'learning', 'about']
+	widgets={
+        "about":forms.Textarea(attrs={'class':'form-control materialize-textarea'}),
+        }
 	success_url = "/dashboard/"	
 	template_name = 'profiles/profile_edit.html'
 	success_message = "Profile was updated successfully" 

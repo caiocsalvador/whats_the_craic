@@ -18,41 +18,63 @@
             <div class="col l9 m12 s12">                
                 <div class="profile box z-depth-1">
                     <h3 class="title-section">{{object.name}}</h3>
-                	{%if object.picture %}
-            			<div class="profile-photo" style="background-image: url({{ object.picture.url }})">
-            			</div>                  		
-                	{% else %}
-                		<div class="profile-photo" background-image: url({% static "img/no-image.png" %})>
-                		</div>
-                	{% endif %}
-                    {% if profile != object%}
-                    	{% if are_friends %}
-                    		<a href="#" class="right active btn-wtc">FRIENDS</a>
-                    	{% else %}
-                    		{% if waiting %}
-                    			{% if waiting == "accept request"%}
-                    				<a class="right btn-wtc" href="{% url 'profiles:acceptfriend' object.id %}">{{waiting}}</a>
-                    			{% else %}
-                    				<a class="right btn-wtc active" href="#">{{waiting}}</a>
-                    			{% endif %}
-                    		{% else %}
-                    			<a class="right btn-wtc" href="{% url 'profiles:addfriend' object.id %}">ADD FRIEND</a>
-                    		{% endif %}
-                    	{% endif %}
-                    	 <a class="right btn-wtc btn-message" href="{% url 'profiles:sendmessage' object.id %}">SEND MESSAGE</a>
-                    {% endif %}
+                	
+                    <div class="row">
+                        <div class="col m6 s12">
+                            {%if object.picture %}
+                                <div class="profile-photo" style="background-image: url({{ object.picture.url }})">
+                                </div>                          
+                            {% else %}
+                                <div class="profile-photo" background-image: url({% static "img/no-image.png" %})>
+                                </div>
+                            {% endif %}
+                        </div>  
+                        <div class="col m6 s12">
+                            <div class="infos-profile">
+                                <h4>About me:</h4>
+                                <p>{{ object.about }}</p>
+                            </div>
+                        </div>
+                    </div>
                         <div class="infos-profile"> 
-                        	<h4>Native Language:</h4>
-                            <p>{{ object.native }}</p>                       	
-                            <h4>Email:</h4>
-                            <p>{{ object.email }}</p>                            
-                            <h4>Languages you want to learn:</h4>
-                            <p>
-                            {% for language in object.learning.all %}
-                                {{ language.name }}, 
-                            {% endfor %}</p>
-                            <h4>NUID:</h4>
-                            <p>{{ object.nui_id }}</p>
+                            <div class="row">
+                                <div class="col m6 s12">
+                                    <h4>Native Language:</h4>
+                                    <p>{{ object.native }}</p>                          
+                                    <h4>Email:</h4>
+                                    <p>{{ object.email }}</p>                            
+                                    <h4>Language(s) I want to learn:</h4>
+                                    <p>
+                                    {% for language in object.learning.all %}
+                                        {{ language.name }}, 
+                                    {% endfor %}</p>
+                                </div>
+                                <div class="col m6 s12">
+                                    <h4>Staff or Student:</h4>
+                                    {% if object.staff %}
+                                        <p>Staff</p>
+                                    {% else %}
+                                        <p>Student</p>
+                                    {% endif %}
+                                    {% if profile != object%}
+                                        {% if are_friends %}
+                                            <a href="#" class="right active btn-wtc">FRIENDS</a>
+                                        {% else %}
+                                            {% if waiting %}
+                                                {% if waiting == "accept request"%}
+                                                    <a class="right btn-wtc active" href="#">{{waiting}}</a>
+                                                {% else %}
+                                                    <a class="right btn-wtc" href="{% url 'profiles:acceptfriend' object.id %}">{{waiting}}</a>
+                                                    
+                                                {% endif %}
+                                            {% else %}
+                                                <a class="right btn-wtc" href="{% url 'profiles:addfriend' object.id %}">ADD FRIEND</a>
+                                            {% endif %}
+                                        {% endif %}
+                                         <a class="right btn-wtc btn-message" href="{% url 'profiles:sendmessage' object.id %}">SEND MESSAGE</a>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

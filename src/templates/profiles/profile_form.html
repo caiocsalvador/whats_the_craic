@@ -77,6 +77,13 @@
 	                    {{ form.learning.errors }}
 	                </div>
                 </div>
+                <div class="row no-margin">
+	                <div class="input-field col m12">	                	
+	                    {{ form.about }}
+	                    <label for="id_native">{{ form.about.label }}</label>
+	                    {{ form.about.errors }}
+	                </div>
+                </div>
                 <div class="cont-submit more-margin-30">
                     <input class="btn-primary" type="submit" value="{% if submit_btn %}{{ submit_btn }}{% else %}Submit{% endif %}">
                 </div>  

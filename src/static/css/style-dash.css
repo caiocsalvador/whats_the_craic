@@ -382,6 +382,8 @@ main{
 .infos-profile{
     padding-left: 10px;
     padding-right: 10px;
+    float: left;
+    width: 100%;
 }
 .infos-profile h4{
     color: #2498d4;
@@ -565,6 +567,23 @@ main{
     color: #5D5C5C;
     border-bottom: 1px solid #2498d4;
 }
+.form-edit textarea{
+    color: #5D5C5C;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #2498d4;
+    border-radius: 0;
+    outline: none;
+    height: 100px;
+    resize: none;
+    width: 100%;
+    font-size: 1rem;
+    margin: 0 0 15px 0;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: content-box;
+    transition: all 0.3s;
+}
 .form-edit h5{    
     font-size: 1rem;
     color: #2498d4;
@@ -576,6 +595,9 @@ main{
 .form-edit .btn-wtc{
     background-color: transparent;
     margin-left: 10px;
+}
+.form-edit .btn-wtc:hover{
+    background-color: #2498d4;
 }
 .form-error ul{
 }

@@ -2,7 +2,24 @@ function activate(item){
     $(item).addClass("active");
 }
 
+function contact(form){
+    $.ajax({
+        type: "POST",
+        url: 'contact/',
+        data: form.serialize(),
+        success : function(json) {
+            console.log("success"); // another sanity check
+            alert("Thank You for your contact, we will keep in touch soon!");
+        },
+    });
+}
+
 $().ready(function() {
+
+    $(".send").on("click", function(event){
+        event.preventDefault();
+        contact($(".form-contact"));
+    });
 
   $('select').material_select();
 
@@ -26,7 +43,19 @@ $().ready(function() {
                 li.addClass("active");
             }, 500);  
             return false;     
-        });
+    });
+
+    $(".info-bg .start").on("click",function(){       
+        var id = $(this).attr("href");
+        $('html,body').animate({scrollTop:$(id).offset().top-110},1000);
+        return false;     
+    });
+
+    $(".arrow").on("click",function(){       
+        var id = $(this).attr("href");
+        $('html,body').animate({scrollTop:$(id).offset().top-110},1000);
+        return false;     
+    });
 
     $('#home').waypoint(function(direction) {
         $("nav li").removeClass("active");

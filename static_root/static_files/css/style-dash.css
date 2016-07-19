@@ -202,6 +202,18 @@ main{
     overflow: auto;
     height: 100%;
 }
+.cont-nav-side li a span{
+    float: right;
+    padding: 0px;
+    border-radius: 50px;
+    color: #fff;
+    background-color: #4FB3E5;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-top: 17px;
+}
 .img-profile{
     float: left;
     width: 100%;
@@ -494,6 +506,287 @@ main{
     text-align: right;
     font-family: 'museo-sans300';
     text-decoration: underline;
+}
+/*
+==========================
+        PROFILE
+==========================
+ */
+.cont-photo{
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.profile-photo{
+    width: 185px;
+    height: 185px;
+    margin-left: 10px;
+    float: left;
+    margin-bottom: 20px;
+    background-size: cover;
+    background-position: center;
+}
+.btn-wtc{
+    color: #2498d4;
+    font-size: 16px;
+    padding: 13px 20px;
+    border: 2px solid #2498d4;
+}
+.btn-wtc.active{
+    background-color: #2498d4;
+    color: #fff;
+}
+.btn-wtc:hover{
+    background-color: #2498d4;
+    color: #fff;
+}
+.btn-message{
+    margin-right: 10px;
+}
+/*
+===============================
+            EDIT FORM
+===============================
+ */
+.form-edit{
+    color: #5D5C5C;
+}
+.cont-profile-picture{
+    display: none;
+}
+.form-edit p{
+    color: #5D5C5C;
+}
+.input-edit-picture span{
+    float: left;
+    cursor: pointer;
+}
+.form-edit input{
+    color: #5D5C5C;
+    border-bottom: 1px solid #2498d4;
+}
+.form-edit h5{    
+    font-size: 1rem;
+    color: #2498d4;
+    margin-top: 0px;
+}
+.form-edit .input-field input[type=file]{
+    width: 100%;
+}
+.form-edit .btn-wtc{
+    background-color: transparent;
+    margin-left: 10px;
+}
+.form-error ul{
+}
+/* label color */
+.form-edit  .input-field label {
+    color: #2498d4;
+}
+   /* label focus color */
+.form-edit .input-field input[type=text]:focus + label {
+    color: #9e9e9e;
+}
+/* label underline focus color */
+.form-edit .input-field input[type=text]:focus {
+    border-bottom: 1px solid #2498d4;
+    box-shadow: 0 1px 0 0 #2498d4;
+}
+.form-edit .input-field input[type=password]:focus + label {
+    color: #9e9e9e;
+}
+/* label underline focus color */
+.form-edit .input-field input[type=password]:focus {
+    border-bottom: 1px solid #2498d4;
+    box-shadow: 0 1px 0 0 #2498d4;
+}
+
+/* icon prefix focus color */
+.form-edit .input-field .prefix.active {
+    color: #2498d4;
+}
+.form-edit input[type=submit]{
+    color: #2498d4;
+    background-color: #fff;
+    font-size: 16px;
+    padding: 13px 20px;
+    border: 2px solid #2498d4;
+}
+.form-edit input[type=submit]:hover{
+    color: #fff;
+    background-color: #2498d4;
+    font-size: 16px;
+    padding: 13px 20px;
+    border: 2px solid #fff;
+}
+.cont-submit{
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.cont-login h3{
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: #5D5C5C;
+}
+.cont-login p{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #5D5C5C;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.cont-form a{
+    font-size: 12px;
+    color: #2498d4;
+}
+.cont-form form{
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.form-edit .select-wrapper input.select-dropdown{
+    border-bottom: 1px solid #2498d4;
+}
+ul.errorlist{
+    background-color: #ef9a9a;
+    margin-top: 0px;
+    color: #fff;
+    margin-bottom: 0px;
+    padding-left: 5px;
+}
+.form-edit .dropdown-content li > span {
+    font-size: 16px;
+    color: #2498d4;
+    display: block;
+    line-height: 22px;
+    padding: 14px 16px;
+}
+.form-edit [type="checkbox"]:checked + label:before{
+    border-right: 2px solid #2498d4;
+    border-bottom: 2px solid #2498d4;
+}
+ul.messages{
+    float: left;
+    width: 100%;
+}
+.messages .success{
+    color: #3c763d;
+    background-color: #dff0d8;
+    padding: 10px;
+    border-color: #d6e9c6;
+}
+.messages .danger{
+    padding: 10px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.messages .info{
+    color: #3c763d;
+    background-color: #dff0d8;
+    padding: 10px;
+    border-color: #d6e9c6;
+}
+/*
+===============================
+            MESSAGES
+===============================
+*/
+.to-message{
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #e1e7f0;
+    padding-bottom: 10px;
+}
+.to-message span{
+    font-size: 18px;
+    color: #2498d4;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.messages p{
+    color: #5D5C5C;
+}
+.messages textarea{
+    color: #5D5C5C;
+    height: 150px !important;
+}
+.messages textarea:focus {
+    border-bottom: 1px solid #2498d4 !important;
+    box-shadow: 0 1px 0 0 #2498d4 !important;
+    height: 150px !important;
+}
+.messages .btn-wtc{
+    background-color: transparent;
+    float: left;
+    margin-left: 0px;
+}
+.messages .btn-wtc:hover{
+    background-color: #2498d4;
+}
+.cont-nav-messages{
+    border-bottom: 1px solid #e1e7f0;
+    padding-bottom: 10px;
+    float: left;
+    width: 100%;
+}
+.info-message{
+    background-color: #E1F1F9;
+    display: none;
+}
+.info-message.active{
+    display: table-row;
+}
+.messages td{
+    color: #7F8081;
+}
+.messages tr{
+    color: #2498d4;
+}
+.messages .resume{
+    cursor: pointer;
+}
+.cont-reply{
+    float: left;
+    width: 100%;
+    border-top: 1px solid #e1e7f0;
+    padding: 10px 0px;
+}
+.info-message h5{
+    color: #2498d4;
+    font-size: 18px;
+    margin-top: 0px;
+}
+.resume.not-visualized td{
+    color: #2498d4;
+}
+.pagination{
+    float: right;
+    width: 100%;
+    border-top: 1px solid #e1e7f0;
+    padding-top: 10px;
+    margin-top: 20px;
+    text-align: right;
+}
+.pagination span{
+    color: #7F8081;
+    font-size: 16px;
+    float: left;
+    margin-top: 13px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.pagination .page-links{
+    float: right;
+}
+.pagination a{
+    float: left;
 }
 /* COL-MD */
 @media all and (max-width:1100px) and (min-width:992px){

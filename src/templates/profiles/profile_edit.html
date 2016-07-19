@@ -42,7 +42,14 @@
                     </div>
                 	
                     <div class="infos-profile">                        
-                    	{{ form.non_field_errors }}    		            
+                    	{{ form.non_field_errors }}   
+                        <div class="row no-margin">
+                             <div class="input-field col m12 s12">                       
+                                {{ form.about }}
+                                <label for="id_about">About me</label>
+                                {{ form.about.errors }}
+                            </div>
+                        </div>
     		            <div class="row no-margin">
     		                <div class="input-field col m6 s12">	                	
     		                    {{ form.name }}
@@ -74,6 +81,8 @@
     		                    <label for="id_learning">Languages you want to learn</label>
     		                    {{ form.learning.errors }}
     		                </div>
+
+                            
     	                </div>
                     </div>
                     <div class="cont-btn">

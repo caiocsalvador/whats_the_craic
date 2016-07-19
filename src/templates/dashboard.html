@@ -19,7 +19,7 @@
                     {% if friendships_requests %}
                         {% for friendships_request in friendships_requests %}
                         <div class="friends-requests z-depth-1">
-                            <h4><a href="{% url 'profiles:view' from_user.id %}">You have a new friend request - <span>{{friendships_request.from_user}}</span></a></h4>
+                            <h4><a href="{% url 'profiles:view' friendships_request.from_user.id %}">You have a new friend request - <span>{{friendships_request.from_user}}</span></a></h4>
                         </div>
                         {% endfor %}
                     {% endif %}
@@ -36,7 +36,7 @@
                                     <p>{{ profile.name }}</p>
                                     <h4>Native Language:</h4>
                                     <p>{{ profile.native }}</p>
-                                    <h4>Languages you want to learn:</h4>
+                                    <h4>Language(s) I want to learn:</h4>
                                     <p>
                                     {% for language in profile.learning.all %}
                                         {{ language.name }}, 

@@ -93,8 +93,8 @@
         </div>
         <div class="info-bg">
             <h2>CONNECT WITH PEOPLE AND BECOME FLUENT IN ANY LANGUAGE</h2>
-            <a href="#" class="start">GET STARTED NOW</a>
-            <a href="#" class="arrow"><img src="{% static "img/arrow.png"%}" alt=""></a>
+            <a href="#works" class="start">GET STARTED NOW</a>
+            <a href="#works" class="arrow"><img src="{% static "img/arrow.png"%}" alt=""></a>
         </div>  
     </section>
     <main>
@@ -109,6 +109,8 @@
                                 <li class="nav-works"><a href="#works">HOW IT WORKS</a></li>
                                 <li class="nav-testimonials"><a href="#testimonials">TESTIMONIALS</a></li>
                                 <li class="nav-contact"><a href="#contact">CONTACT</a></li>
+                                <li><a href="{% url 'auth_login' %}">SING IN</a></li>
+                                <li><a href="{% url 'profiles:register' %}">SING UP</a></li>
                             </ul>
                             <ul id="nav-mobile" class="side-nav" style="left: -250px;">
                                 <li class="nav-home"><a href="#home">HOME</a></li>
@@ -132,7 +134,7 @@
                                 <div class="img-step">
                                     <img src="{% static "img/step1.jpg"%}" alt="">
                                 </div>
-                                <h4>FIND A FRIEND</h4>
+                                <h4>FIND A PARTNER</h4>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum asperiores deleniti aliquid non iusto harum sint dicta aspernatur ipsum officiis quaerat molestias a, eveniet cupiditate voluptatem quo quas amet magni.</p>
                             </div>
                         </div>
@@ -141,7 +143,7 @@
                                 <div class="img-step">
                                     <img src="{% static "img/step2.jpg"%}" alt="">
                                 </div>
-                                <h4>FIND A FRIEND</h4>
+                                <h4>CONNECT</h4>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum asperiores deleniti aliquid non iusto harum sint dicta aspernatur ipsum officiis quaerat molestias a, eveniet cupiditate voluptatem quo quas amet magni.</p>
                             </div>
                         </div>
@@ -150,7 +152,7 @@
                                 <div class="img-step">
                                     <img src="{% static "img/step3.jpg"%}" alt="">
                                 </div>
-                                <h4>FIND A FRIEND</h4>
+                                <h4>MEET UP</h4>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum asperiores deleniti aliquid non iusto harum sint dicta aspernatur ipsum officiis quaerat molestias a, eveniet cupiditate voluptatem quo quas amet magni.</p>
                             </div>
                         </div>

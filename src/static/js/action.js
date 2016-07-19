@@ -43,7 +43,19 @@ $().ready(function() {
                 li.addClass("active");
             }, 500);  
             return false;     
-        });
+    });
+
+    $(".info-bg .start").on("click",function(){       
+        var id = $(this).attr("href");
+        $('html,body').animate({scrollTop:$(id).offset().top-110},1000);
+        return false;     
+    });
+
+    $(".arrow").on("click",function(){       
+        var id = $(this).attr("href");
+        $('html,body').animate({scrollTop:$(id).offset().top-110},1000);
+        return false;     
+    });
 
     $('#home').waypoint(function(direction) {
         $("nav li").removeClass("active");

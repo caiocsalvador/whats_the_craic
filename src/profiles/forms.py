@@ -14,11 +14,12 @@ class ProfileRegisterForm (forms.ModelForm):
 
     class Meta:
         model = Profile        
-        fields = ['username', 'email', 'password', 'password2', 'name', 'picture', 'nui_id', 'staff', 'native', 'learning']
+        fields = ['username', 'email', 'password', 'password2', 'name', 'picture', 'nui_id', 'staff', 'native', 'learning', 'about']
         widgets={
                 "name":forms.TextInput(attrs={'class':'form-control'}),
                 "email":forms.EmailInput(attrs={'class':'form-control'}),  
                 "nui_id":forms.TextInput(attrs={'class':'form-control'}),
+                "about":forms.Textarea(attrs={'class':'form-control materialize-textarea'}),
                 } 
         
     def __init__(self, *args, **kwargs):
@@ -28,7 +29,8 @@ class ProfileRegisterForm (forms.ModelForm):
         self.fields['nui_id'].label = "NUI ID"
         self.fields['staff'].label = "Are you Staff Member?"
         self.fields['native'].label = "Native Language"
-        self.fields['learning'].label = "Languages you want to learn"
+        self.fields['learning'].label = "Language(s) I want to learn"
+        self.fields['about'].label = "About me"
 
 
     def clean(self):
